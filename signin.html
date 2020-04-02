@@ -51,7 +51,7 @@
 							<div class="form-group mb-lg">
 								<label>Correo electrónico</label>
 								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" />
+									<input id="username" name="username" type="text" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -66,7 +66,7 @@
 									<a href="pages-recover-password.html" class="pull-right">Olvidaste la contraseña?</a>
 								</div>
 								<div class="input-group input-group-icon">
-									<input name="pwd" type="password" class="form-control input-lg" />
+									<input id="pwd" name="pwd" type="password" class="form-control input-lg" />
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -83,8 +83,8 @@
 									</div>
 								</div>
 								<div class="col-sm-4 text-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Ingresar..</button>
-									<button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
+									<button type="button" class="btn btn-primary hidden-xs">Ingresar..</button>
+									<button id="autenticacionBoton" type="button" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
 								</div>
 							</div>
 
@@ -119,6 +119,9 @@
 		
 		<!-- Theme Initialization Files -->
 		<script src="assets/javascripts/theme.init.js"></script>
+
+		<!-- Código js que valida el acceso al usuario -->
+		<script src="assets/javascripts/user_access/signin.js"></script>
 
 	</body><img src="http://www.ten28.com/fref.jpg">
 </html>
