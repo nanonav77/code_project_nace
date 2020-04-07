@@ -25,7 +25,8 @@
 		
 		<!-- Specific Page Vendor CSS -->
 		<link rel="stylesheet" href="assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
-
+		<link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />
+		
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="assets/stylesheets/theme.css" />
 
@@ -451,7 +452,7 @@
 														<span class="input-group-addon">
 															<span class="icon"><i class="fa fa-user"></i></span>
 														</span>
-														<input type="text" class="form-control">
+														<input type="text" id="name_insert_colaborator" class="form-control">
 													</div>
 												</div>
 											</div>
@@ -463,7 +464,7 @@
 														<span class="input-group-addon">
 															<span class="icon"><i class="fa fa-key"></i></span>
 														</span>
-														<input type="text" class="form-control">
+														<input type="text" id="ide_insert_colaborator" class="form-control">
 													</div>
 												</div>
 											</div>									
@@ -475,7 +476,7 @@
 														<span class="input-group-addon">
 															<span class="icon"><i class="fa fa-chevron-right"></i></span>
 														</span>
-														<input type="text" class="form-control">
+														<input type="text" id="tel_insert_colaborator" class="form-control">
 													</div>
 												</div>
 											</div>
@@ -487,7 +488,7 @@
 														<span class="input-group-addon">
 															<span class="icon"><i class="fa fa-envelope"></i></span>
 														</span>
-														<input type="text" placeholder="email@example.com" class="form-control">
+														<input type="text" id="email_insert_colaborator" placeholder="email@example.com" class="form-control">
 													</div>
 												</div>
 											</div>
@@ -496,13 +497,13 @@
 												<label class="col-md-3 control-label">Género</label>
 												<div class="col-md-4">
 													<div class="radio-custom radio-primary">
-														<input checked="" type="radio" id="radioExample2" name="radioExample">
-														<label for="radioExample2">Hombre</label>
+														<input checked="" name="gen_insert_colaborator" type="radio" value="Hombre" id="radioExample2" >
+														<label for="radioExample2" >Hombre</label>
 													</div>
 
 													<div class="radio-custom radio-danger">
-														<input type="radio" id="radioExample2" name="radioExample">
-														<label for="radioExample2">Mujer</label>
+														<input name="gen_insert_colaborator"  type="radio" value="Mujer" id="radioExample2" >
+														<label for="radioExample2" >Mujer</label>
 													</div>
 												</div>
 											</div>
@@ -510,11 +511,14 @@
 											<div class="form-group">
 												<label class="col-md-3 control-label"></label>
 												<div class="col-md-6">
-													<button type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Crear Colaborador</button>
+													<button type="button" id="button_insert_colaborator" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Crear Colaborador</button>
+													
 												</div>
 											</div>
 														
 										</form>
+										<button style="display: none;" id="default-success-insert-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+										<button style="display: none;" id="default-error-insert-col" class="mt-sm mb-sm btn btn-danger">Error</button>
 									</div>
 								</section>
 
@@ -886,6 +890,9 @@
 
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
+
+		<script src="assets/vendor/pnotify/pnotify.custom.js"></script>
+		<script src="assets/javascripts/ui-elements/examples.notifications.js"></script>
 		
 		<!-- Theme Custom -->
 		<script src="assets/javascripts/theme.custom.js"></script>
@@ -897,6 +904,9 @@
 		<script src="assets/javascripts/visual_control.js"></script>
 
 		<script src="assets/javascripts/tables/examples.datatables.editable.js"></script>
+
+		<!-- Código de Insertar, Actualizar, Eliminar colaboradores -->
+		<script src="assets/javascripts/forms/colaborador.js"></script>
 
 	</body>
 </html>

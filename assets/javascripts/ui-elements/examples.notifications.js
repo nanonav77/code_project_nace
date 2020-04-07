@@ -9,7 +9,7 @@
 	*/
 	$('#default-primary').click(function() {
 		new PNotify({
-			title: 'Regular Notice',
+			title: 'Regular',
 			text: 'Check me out! I\'m a notice.',
 			type: 'custom',
 			addclass: 'notification-primary',
@@ -24,10 +24,10 @@
 		});
 	});
 
-	$('#default-success').click(function() {
+	$('#default-success-insert-col').click(function() {
 		new PNotify({
-			title: 'Regular Notice',
-			text: 'Check me out! I\'m a notice.',
+			title: 'Notificación',
+			text: 'El colaborador ha sido registradon éxito!',
 			type: 'success'
 		});
 	});
@@ -40,10 +40,10 @@
 		});
 	});
 
-	$('#default-error').click(function() {
+	$('#default-error-insert-col').click(function() {
 		new PNotify({
-			title: 'Regular Notice',
-			text: 'Check me out! I\'m a notice.',
+			title: 'Notificación',
+			text: 'El colaborador ya se encuentra registrado!',
 			type: 'error'
 		});
 	});
