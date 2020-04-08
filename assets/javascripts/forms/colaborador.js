@@ -1,7 +1,37 @@
 
 /// ESTE CÓDIGO SE ENCARGA DE LLEVAR A CABO LA FUNCIONALIDAD DE CREAR, ELIMINAR Y ACTUALIZAR LOS COLABORADORES ///
 
-/// --- 1 INSERTAR USUARIO ---
+/// --- 1. REGISTRAR COLABORADOR ---
+
+/// *** 1.1 OBTENER EL ID DEL NUEVO COLABORADOR **
+
+function obtenerIdNuevoColaborador(){
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_get_new_idcolaborador.php',true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                let datos = JSON.parse(this.responseText);
+           
+                for(let item of datos){
+                    
+                    // Le asignamos el número de colaborador que continua 
+                    document.getElementById('number_insert_colaborador').value = item.indice;
+
+                }
+                                             
+            }            
+    }
+}
+
+/// *** 1.2 REGISTRAR COLABORADOR **
 
 document.querySelector('#button_insert_colaborator').addEventListener('click', insertarColaborador); // BOTON EJECUTA LA FUNCIÓN
 
@@ -36,17 +66,131 @@ function insertarColaborador(){
 
             if(this.readyState == 4 && this.status == 200){
 
-                var validacion_existencia = this.responseText; // variabla trae el valor de php donde 0 ya está creado y 1 que se puede crear como nuevo registro
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 ya está creado y 1 que se puede crear como nuevo registro
                 
                 if (validacion_existencia == 0){
-                    alert("El usuario de red o correo electrónico ya se encuentran registrados en la plataforma"); //Mensaje de que el usuario ya está creado
                    
+                    document.getElementById('default-error-insert-col').click();
+                    
                 }
                 else{
-                    alert("El usuario ha sido registrado en la plataforma"); //Mensaje de que el usuario se puede insertar
+                    
+                    document.getElementById('default-success-insert-col').click();
+
+                    // Como el registro se llevo a cabo correctamente actualizamos y vaciamos los campos
+                    obtenerIdNuevoColaborador();
+                    document.getElementById('name_insert_colaborator').value = " ";
+                    document.getElementById('ide_insert_colaborator').value = " ";
+                    document.getElementById('tel_insert_colaborator').value = " ";
+                    document.getElementById('email_insert_colaborator').value = " ";
                 }
                 
             }
             
+    }
+}
+
+
+/// --- 2. ACTUALIZAR COLABORADOR ---
+
+/// *** 2.1 FUNCIÓN DE BUSCAR LOS COLABORADORES **
+
+document.querySelector('#button_buscar_update_colaboradores').addEventListener('click', buscarColaboradorActualizar); // BOTON EJECUTA LA FUNCIÓN
+
+function buscarColaboradorActualizar(){
+
+    /// LIMPIAMOS LA TABLA ANTES DE REALIZAR UNA NUEVA CONSULTA
+    var myTable = document.getElementById("table_update_colaboradores");
+    var rowCount = myTable.rows.length;
+    for (var x=rowCount-1; x>0; x--) {
+        myTable.deleteRow(x);
+    }
+    ////////////////////////////////////////////////////////////
+
+    var valor = document.getElementById("buscar_update_colaboradores").value;
+    
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_get_update_colaboradores.php?valor_ingresado='+valor,true);
+
+    xhttp.send();
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+
+                let datos = JSON.parse(this.responseText);
+           
+                for(let item of datos){
+                    
+                    // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
+                    
+                    var table = document.getElementById("table_update_colaboradores"); // Referencia a la tabla de lista de colaboradores que se desean actualizar
+                    {
+                        var row = table.insertRow(1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                      
+                        cell1.innerHTML = item.numero;      
+                        cell2.innerHTML = item.nombre;
+                        cell3.innerHTML = item.identificacion;
+                        cell4.innerHTML = item.telefono;
+                        cell5.innerHTML = item.email;
+
+                        // La celda 6 se le asignan atributos para mostrar y ejecutar la función de actualizar colaborador que fue seleccionado
+                        cell6.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:panel_actualizar_colaborador();obtenerDatosColaboradorSeleccionadoActualizar("+item.numero+");'><i class='fa fa-pencil'></i></a></td>";
+                
+                    }   
+                  
+                }
+                
+            }
+            
+    }
+}
+
+/// *** 2.2 FUNCIÓN PARA CONSULTAR LOS DATOS ACTUALES DEL COLABORADOR SELECCIONADO **
+
+function obtenerDatosColaboradorSeleccionadoActualizar(numero){
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_get_update_colaborador_seleccionado.php?numero_ingresado='+numero,true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                let datos = JSON.parse(this.responseText);
+           
+                for(let item of datos){
+                    
+                    // Mostramos los valores actuales del colaborador a seleccionado a actualizar
+                    document.getElementById('number_update_colaborator').value = item.numero;
+                    document.getElementById('name_update_colaborator').value = item.nombre;
+                    document.getElementById('ide_update_colaborator').value = item.identificacion;
+                    document.getElementById('tel_update_colaborator').value = item.telefono;
+                    document.getElementById('email_update_colaborator').value = item.email;
+
+                    // Validamos si el colaborador es hombre o mujer para activar el radio button respectivo
+                    var radios = document.getElementsByName('gen_update_colaborator');
+
+                    if(item.genero == "Hombre"){
+                        radios[0].checked = true;
+                    }
+                    else{
+                        radios[1].checked = true;
+                    }
+
+                }
+                                             
+            }            
     }
 }
