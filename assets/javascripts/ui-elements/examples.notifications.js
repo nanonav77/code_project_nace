@@ -27,7 +27,23 @@
 	$('#default-success-insert-col').click(function() {
 		new PNotify({
 			title: 'Notificación',
-			text: 'El colaborador ha sido registradon éxito!',
+			text: 'El colaborador ha sido registrado con éxito!',
+			type: 'success'
+		});
+	});
+
+	$('#default-success-update-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'El colaborador ha sido actualizado con éxito!',
+			type: 'success'
+		});
+	});
+
+	$('#default-success-delete-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'El colaborador ha sido eliminado con éxito!',
 			type: 'success'
 		});
 	});
@@ -44,6 +60,22 @@
 		new PNotify({
 			title: 'Notificación',
 			text: 'El colaborador ya se encuentra registrado!',
+			type: 'error'
+		});
+	});
+
+	$('#default-error-delete-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'No se pudo eliminar el colaborador!',
+			type: 'error'
+		});
+	});
+
+	$('#default-error-update-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'No se pudo actualizar los datos del colaborador!',
 			type: 'error'
 		});
 	});

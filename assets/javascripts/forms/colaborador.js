@@ -111,7 +111,7 @@ function buscarColaboradorActualizar(){
     
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_get_update_colaboradores.php?valor_ingresado='+valor,true);
+    xhttp.open('GET','assets/php_db/db_get_colaboradores.php?valor_ingresado='+valor,true);
 
     xhttp.send();
     
@@ -188,6 +188,158 @@ function obtenerDatosColaboradorSeleccionadoActualizar(numero){
                     else{
                         radios[1].checked = true;
                     }
+
+                }
+                                             
+            }            
+    }
+}
+
+
+/// *** 2.3 FUNCIÓN PARA LLEVAR A CABO LA ACTUALIZACIÓN DE LOS DATOS ACTUALES DEL COLABORADOR **
+
+document.querySelector('#button_update_colaborator').addEventListener('click', actualizarColaboradorSeleccionado); // BOTON EJECUTA LA FUNCIÓN
+
+function actualizarColaboradorSeleccionado(){
+
+    var numero = document.getElementById("number_update_colaborator").value;
+    var nombre = document.getElementById("name_update_colaborator").value;
+    var identificacion = document.getElementById("ide_update_colaborator").value;
+    var telefono = document.getElementById("tel_update_colaborator").value;
+    var correo = document.getElementById("email_update_colaborator").value;
+    var genero;
+
+    // Obtener el género seleccionado por el usuario
+    var radios = document.getElementsByName('gen_update_colaborator');
+
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            
+            genero = radios[i].value;
+            break;
+        }
+    }
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_update_colaborador.php?numero_ingresado='+numero+'&nombre_ingresado='+nombre
+    +'&identificacion_ingresado='+identificacion+'&email_ingresado='+correo+'&genero_ingresado='+genero+'&telefono_ingresado='+telefono,true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 error y 1 que se realizó la actualización correctamente
+                
+                if (validacion_existencia == 0){
+                   
+                    document.getElementById('default-error-update-col').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-update-col').click();
+
+
+                }
+                                             
+            }            
+    }
+}
+
+/// --- 3. ELIMINAR COLABORADOR ---
+
+/// *** 2.1 FUNCIÓN DE BUSCAR LOS COLABORADORES **
+
+document.querySelector('#button_buscar_delete_colaboradores').addEventListener('click', buscarColaboradorEliminar); // BOTON EJECUTA LA FUNCIÓN
+
+function buscarColaboradorEliminar(){
+
+    /// LIMPIAMOS LA TABLA ANTES DE REALIZAR UNA NUEVA CONSULTA
+    var myTable = document.getElementById("table_delete_colaboradores");
+    var rowCount = myTable.rows.length;
+    for (var x=rowCount-1; x>0; x--) {
+        myTable.deleteRow(x);
+    }
+    ////////////////////////////////////////////////////////////
+
+    var valor = document.getElementById("buscar_delete_colaboradores").value;
+    
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_get_colaboradores.php?valor_ingresado='+valor,true);
+
+    xhttp.send();
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+
+                let datos = JSON.parse(this.responseText);
+           
+                for(let item of datos){
+                    
+                    // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
+                    
+                    var table = document.getElementById("table_delete_colaboradores"); // Referencia a la tabla de lista de colaboradores que se desean actualizar
+                    {
+                        var row = table.insertRow(1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                      
+                        cell1.innerHTML = item.numero;      
+                        cell2.innerHTML = item.nombre;
+                        cell3.innerHTML = item.identificacion;
+                        cell4.innerHTML = item.telefono;
+                        cell5.innerHTML = item.email;
+
+                        // La celda 6 se le asignan atributos para mostrar y ejecutar la función de eliminar colaborador que fue seleccionado
+                        cell6.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:eliminarColaboradorSeleccionado("+item.numero+");'><i class='fa fa-trash-o'></i></a></td>";
+                
+                    }   
+                  
+                }
+                
+            }
+            
+    }
+}
+
+/// *** 2.3 FUNCIÓN PARA LLEVAR A CABO LA ELIMINACIÓN DEL COLABORADOR **
+
+
+function eliminarColaboradorSeleccionado(numero){
+
+    
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_delete_colaborador.php?numero_ingresado='+numero,true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                var validacion = this.responseText; // variable trae el valor de php donde 0 error y 1 que se realizó la eliminación correctamente
+                
+                if (validacion == 0){
+                   
+                    document.getElementById('default-error-delete-col').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-delete-col').click();
+                    buscarColaboradorEliminar();
 
                 }
                                              
