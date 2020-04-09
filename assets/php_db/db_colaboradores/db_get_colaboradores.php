@@ -2,7 +2,7 @@
 
     // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA OBTENER LOS COLABORADORES A ACTUALIZAR
 
-    include 'db_conexion.php';
+    include '../db_conexion/db_conexion.php';
        
     $valor_ingresado = $_GET['valor_ingresado'];
 

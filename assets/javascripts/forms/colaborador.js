@@ -9,7 +9,7 @@ function obtenerIdNuevoColaborador(){
 
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_get_new_idcolaborador.php',true);
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_get_new_idcolaborador.php',true);
 
     xhttp.send();
 
@@ -57,7 +57,7 @@ function insertarColaborador(){
 
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_add_colaborador.php?nombre_ingresado='+nombre+'&identificacion_ingresado='+identificacion
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_add_colaborador.php?nombre_ingresado='+nombre+'&identificacion_ingresado='+identificacion
     +'&telefono_ingresado='+telefono+'&email_ingresado='+correo+'&genero_ingresado='+genero,true);
 
     xhttp.send();
@@ -111,7 +111,7 @@ function buscarColaboradorActualizar(){
     
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_get_colaboradores.php?valor_ingresado='+valor,true);
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_get_colaboradores.php?valor_ingresado='+valor,true);
 
     xhttp.send();
     
@@ -159,7 +159,7 @@ function obtenerDatosColaboradorSeleccionadoActualizar(numero){
 
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_get_update_colaborador_seleccionado.php?numero_ingresado='+numero,true);
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_get_update_colaborador_seleccionado.php?numero_ingresado='+numero,true);
 
     xhttp.send();
 
@@ -222,7 +222,7 @@ function actualizarColaboradorSeleccionado(){
 
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_update_colaborador.php?numero_ingresado='+numero+'&nombre_ingresado='+nombre
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_update_colaborador.php?numero_ingresado='+numero+'&nombre_ingresado='+nombre
     +'&identificacion_ingresado='+identificacion+'&email_ingresado='+correo+'&genero_ingresado='+genero+'&telefono_ingresado='+telefono,true);
 
     xhttp.send();
@@ -270,7 +270,7 @@ function buscarColaboradorEliminar(){
     
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_get_colaboradores.php?valor_ingresado='+valor,true);
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_get_colaboradores.php?valor_ingresado='+valor,true);
 
     xhttp.send();
     
@@ -320,7 +320,7 @@ function eliminarColaboradorSeleccionado(numero){
     
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_delete_colaborador.php?numero_ingresado='+numero,true);
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_delete_colaborador.php?numero_ingresado='+numero,true);
 
     xhttp.send();
 

@@ -1,10 +1,9 @@
 <?php
  
-    // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA ACTUALIZAR LOS DATOS DE UN COLABORADOR
+    // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA AGREGAR UN NUEVO COLABORADOR
     
-    include 'db_conexion.php';
+    include '../db_conexion/db_conexion.php';
 
-    $numero_ingresado = $_GET['numero_ingresado'];
     $nombre_ingresado = $_GET['nombre_ingresado'];
     $identificacion_ingresado = $_GET['identificacion_ingresado'];
     $telefono_ingresado = $_GET['telefono_ingresado'];
@@ -16,8 +15,11 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "UPDATE nace_colaboradores set nombre='$nombre_ingresado', identificacion='$identificacion_ingresado' , telefono='$telefono_ingresado' ,email='$email_ingresado' , genero='$genero_ingresado' 
-    where numero='$numero_ingresado'";
+    $sql = "INSERT INTO nace_colaboradores (nombre, identificacion, telefono,email,genero)
+    SELECT * FROM (SELECT '$nombre_ingresado' as nombre, '$identificacion_ingresado' as identificacion, '$telefono_ingresado' as telefono,'$email_ingresado' as correo,'$genero_ingresado' as genero) AS tmp
+    WHERE NOT EXISTS (
+        SELECT identificacion,telefono,email FROM nace_colaboradores WHERE identificacion = '$identificacion_ingresado' or email = '$email_ingresado' or telefono = '$telefono_ingresado'
+    ) LIMIT 1;";
 
     if ($conn->query($sql) === TRUE) {
        

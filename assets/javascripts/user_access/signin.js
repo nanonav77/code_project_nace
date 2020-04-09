@@ -13,7 +13,7 @@ function autenticarUsuario(){
     const xhttp = new XMLHttpRequest();
 
     // Se envian los parámetros y se llama la función php de base datos para validar al usuario
-    xhttp.open('GET','assets/php_db/db_user_signin.php?email_ingresado='+email+'&contrasena_ingresada='+contrasena,true);
+    xhttp.open('GET','assets/php_db/access_user/db_user_signin.php?email_ingresado='+email+'&contrasena_ingresada='+contrasena,true);
 
     xhttp.send();
 

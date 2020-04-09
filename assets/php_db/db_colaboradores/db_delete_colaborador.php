@@ -2,7 +2,7 @@
  
     // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA ELIMINAR UN DETERMINADO COLABORADOR
     
-    include 'db_conexion.php';
+    include '../db_conexion/db_conexion.php';
 
     $numero_ingresado = $_GET['numero_ingresado'];
 

@@ -3,7 +3,7 @@
 
     // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA OBTENER LE ID DE UN NUEVO COLABORADOR
 
-   	include 'db_conexion.php';
+   	include '../db_conexion/db_conexion.php';
 
     $return_arr = array();
 	
