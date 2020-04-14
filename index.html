@@ -37,7 +37,7 @@
 		<link rel="stylesheet" href="assets/stylesheets/theme-custom.css">
 
 		<!-- Head Libs -->
-		<script src="assets/vendor/modernizr/modernizr.js"></script>
+		<script src="assets/vendor/modernizr/modernizer.js"></script>
 
 	</head>
 	<body>
@@ -237,7 +237,7 @@
 								<img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span class="name">John Doe Junior</span>
+								<span id="span_nombre_usuario_mostrar" class="name"></span>
 								<span class="role">administrator</span>
 							</div>
 			
@@ -294,13 +294,13 @@
 										</a>
 									</li>
 									<li>
-										<a href="javascript:seccion_actualizar_colaborador(1);">
+										<a href="javascript:seccion_actualizar_colaborador(1);buscarColaboradorActualizar();">
 											<i class="fa fa-bars" aria-hidden="true"></i>
 											<span>Actualizar Colaborador</span>
 										</a>
 									</li>
 									<li>
-										<a href="javascript:seccion_eliminar_colaborador();">
+										<a href="javascript:seccion_eliminar_colaborador();buscarColaboradorEliminar();">
 											<i class="fa fa-times" aria-hidden="true"></i>
 											<span>Eliminar Colaborador</span>
 										</a>
@@ -521,6 +521,7 @@
 										<button style="display: none;" id="default-error-insert-col" class="mt-sm mb-sm btn btn-danger">Error</button>
 									</div>
 								</section>
+							
 
 								<!-- sección para llevar a cabo la actualización de un usuario -->
 								
@@ -855,8 +856,10 @@
 
 		<script src="assets/javascripts/tables/examples.datatables.editable.js"></script>
 
-		<!-- Código de Insertar, Actualizar, Eliminar colaboradores -->
-		<script src="assets/javascripts/forms/colaborador.js"></script>
+
+
+		<!-- Código que se encarga del login y al mismo tiempo asigna el nombre del usuario que ingresó -->
+		<script src="assets/javascripts/user_access/signin.js"></script>
 
 	</body>
 </html>

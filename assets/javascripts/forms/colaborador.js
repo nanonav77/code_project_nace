@@ -24,7 +24,7 @@ function obtenerIdNuevoColaborador(){
                     
                     // Le asignamos el número de colaborador que continua 
                     document.getElementById('number_insert_colaborador').value = item.indice;
-
+                   
                 }
                                              
             }            

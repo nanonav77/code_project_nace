@@ -27,11 +27,13 @@ function autenticarUsuario(){
                     for(let item of datos){
                          id = item.id; // si este ID es mayor a cero es por que el usuario está registrado
                          if(id>0){
-                            alert(item.nombre_usuario+" "+item.apellidos_usuario); //se obtiene el nombre y apellidos del usuario
-                            console.log('registrado');
+                            //se obtiene el nombre y apellidos del usuario y se asignan a la pantall inicial según el usuario que ingresó
+                            //document.getElementById("span_nombre_usuario_mostrar").textContent= "Nano";
+                            
+                            location.href = 'index.html'; //redirigimos a la pantalla principal
                          }
                          else{
-                            console.log('no registrado'); 
+                            
                          }
                          
                     }
