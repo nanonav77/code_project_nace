@@ -23,8 +23,8 @@ function obtenerIdNuevoColaborador(){
                 for(let item of datos){
                     
                     // Le asignamos el número de colaborador que continua 
-                    document.getElementById('number_insert_colaborador').value = item.indice;
-                   
+                    document.getElementById("numero_insert_colaborator").value = item.indice;
+                                      
                 }
                                              
             }            
@@ -41,20 +41,9 @@ function insertarColaborador(){
     var identificacion = document.getElementById("ide_insert_colaborator").value;
     var telefono = document.getElementById("tel_insert_colaborator").value;
     var correo = document.getElementById("email_insert_colaborator").value;
-    var genero;
+    var genero = 'Masculino';
 
-    // Obtener el género seleccionado por el usuario
-    var radios = document.getElementsByName('gen_insert_colaborator');
-
-    for (var i = 0, length = radios.length; i < length; i++) {
-        if (radios[i].checked) {
-            
-            genero = radios[i].value;
-            break;
-        }
-    }
     
-
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_colaboradores/db_add_colaborador.php?nombre_ingresado='+nombre+'&identificacion_ingresado='+identificacion
