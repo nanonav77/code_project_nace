@@ -166,7 +166,7 @@ function buscarFincaActualizar(){
                         
 
                         // La celda 5 se le asignan atributos para mostrar y ejecutar la función de actualizar finca que fue seleccionado
-                        cell5.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:panel_actualizar_colaborador();obtenerDatosColaboradorSeleccionadoActualizar("+item.numero+");'><i class='fa fa-pencil'></i></a></td>";
+                        cell5.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:panel_actualizar_finca();obtenerDatosFincaSeleccionadaActualizar("+item.numero+");'><i class='fa fa-pencil'></i></a></td>";
                 
                     }   
                   
@@ -174,5 +174,48 @@ function buscarFincaActualizar(){
                 
             }
             
+    }
+}
+
+/// *** 2.2 FUNCIÓN PARA CONSULTAR LOS DATOS ACTUALES DE LA FINCA SELECCIONADA **
+
+function obtenerDatosFincaSeleccionadaActualizar(numero){
+
+    document.getElementById('select_update_propietarios_finca').innerText = null;
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_fincas/db_get_update_finca_seleccionada.php?numero_ingresado='+numero,true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                let datos = JSON.parse(this.responseText);
+
+                var select_finca_update = document.getElementById("select_update_propietarios_finca");
+           
+                for(let item of datos){
+                    
+                    // Mostramos los valores actuales del colaborador a seleccionado a actualizar
+                    document.getElementById('number_update_finca').value = item.numero_finca;
+                    document.getElementById('name_update_finca').value = item.nombre_finca;
+                    document.getElementById('direccion_update_finca').value = item.direccion_finca;
+                    
+                    // Creamos el elemento con los datos del propietario actual de la finca
+                    var elemento = document.createElement("option");
+                    elemento.text = item.identificacion_propietario+" - "+item.nombre_propietario+" "+item.apellidos_propietario;
+                    elemento.value = item.ide_propietario;
+
+                    // Añadimos el elemento al selector
+                    select_finca_update.options.add(elemento);
+
+                   
+                }
+                                             
+            }            
     }
 }

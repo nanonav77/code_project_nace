@@ -168,16 +168,7 @@ function obtenerDatosColaboradorSeleccionadoActualizar(numero){
                     document.getElementById('tel_update_colaborator').value = item.telefono;
                     document.getElementById('email_update_colaborator').value = item.email;
 
-                    // Validamos si el colaborador es hombre o mujer para activar el radio button respectivo
-                    var radios = document.getElementsByName('gen_update_colaborator');
-
-                    if(item.genero == "Hombre"){
-                        radios[0].checked = true;
-                    }
-                    else{
-                        radios[1].checked = true;
-                    }
-
+                   
                 }
                                              
             }            
