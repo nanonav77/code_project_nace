@@ -219,3 +219,44 @@ function obtenerDatosFincaSeleccionadaActualizar(numero){
             }            
     }
 }
+
+/// *** 2.3 FUNCIÓN PARA LLEVAR A CABO LA ACTUALIZACIÓN DE LOS DATOS ACTUALES DE LA FINCA **
+
+document.querySelector('#button_update_finca').addEventListener('click', actualizarFincaSeleccionada); // BOTON EJECUTA LA FUNCIÓN
+
+function actualizarFincaSeleccionada(){
+
+    var numero = document.getElementById("number_update_finca").value;
+    var ide_propietario = document.getElementById("select_update_propietarios_finca").value;
+    var nombre = document.getElementById("name_update_finca").value;
+    var direccion = document.getElementById("direccion_update_finca").value;
+   
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_fincas/db_update_finca.php?numero_ingresado='+numero+'&nombre_ingresado='+nombre
+    +'&ide_propietario_ingresado='+ide_propietario+'&direccion_ingresada='+direccion,true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 error y 1 que se realizó la actualización correctamente
+                
+                if (validacion_existencia == 0){
+                   
+                    document.getElementById('default-error-update-col').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-update-col').click();
+
+
+                }
+                                             
+            }            
+    }
+}
