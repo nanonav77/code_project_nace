@@ -78,8 +78,7 @@ function insertarFinca(){
     var nombre = document.getElementById("nombre_insert_finca").value;
     var ide_propietario = document.getElementById("select_propietarios_finca").value;
     var direccion = document.getElementById("direccion_insert_finca").value;
-    
-    
+        
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_fincas/db_add_finca.php?nombre_ingresado='+nombre+'&ide_propietario_ingresado='+ide_propietario

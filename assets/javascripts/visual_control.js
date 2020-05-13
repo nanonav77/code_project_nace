@@ -9,6 +9,7 @@ function seccion_crear_colaborador(){
     document.getElementById("seccion_buscar_colaborador_del").style.display = "none";
     document.getElementById("seccion_lista_colaboradores_del").style.display = "none";
     document.getElementById("seccion_registro_cajuelas").style.display = "none";
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "none";
     document.getElementById("seccion_crear_finca").style.display = "none";
     document.getElementById("seccion_buscar_finca_act").style.display = "none";
     document.getElementById("seccion_lista_fincas_act").style.display = "none";
@@ -48,6 +49,7 @@ function seccion_actualizar_colaborador(valor){
     document.getElementById("seccion_buscar_finca_act").style.display = "none";
     document.getElementById("seccion_lista_fincas_act").style.display = "none";
     document.getElementById("panel_actualizar_finca").style.display = "none";
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "none";
    
 }
 
@@ -65,6 +67,7 @@ function seccion_eliminar_colaborador(){
     document.getElementById("seccion_buscar_finca_act").style.display = "none";
     document.getElementById("seccion_lista_fincas_act").style.display = "none";
     document.getElementById("panel_actualizar_finca").style.display = "none";
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "none";
  
     document.getElementById('buscar_delete_colaboradores').value = " ";
               
@@ -90,11 +93,13 @@ function panel_actualizar_colaborador(){
     document.getElementById("seccion_buscar_finca_act").style.display = "none";
     document.getElementById("seccion_lista_fincas_act").style.display = "none";
     document.getElementById("panel_actualizar_finca").style.display = "none";
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "none";
 }
 
 function seccion_registro_control_cajuelas(){
 
     document.getElementById("seccion_registro_cajuelas").style.display = "initial";
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "initial";
 
 
     document.getElementById("seccion_crear_colaborador").style.display = "none";    
@@ -125,7 +130,7 @@ function seccion_registro_finca(){
     document.getElementById("seccion_buscar_finca_act").style.display = "none";
     document.getElementById("seccion_lista_fincas_act").style.display = "none";
     document.getElementById("panel_actualizar_finca").style.display = "none";
-
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "none";
 
     document.getElementById('nombre_insert_finca').value = " ";
     document.getElementById('direccion_insert_finca').value = " ";
@@ -159,6 +164,7 @@ function seccion_actualizacion_finca(valor){
     document.getElementById("seccion_registro_cajuelas").style.display = "none";
     document.getElementById("seccion_crear_finca").style.display = "none";
     document.getElementById("panel_actualizar_finca").style.display = "none";
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "none";
 
 
     document.getElementById('nombre_insert_finca').value = " ";
@@ -182,4 +188,5 @@ function panel_actualizar_finca(){
     document.getElementById("seccion_crear_finca").style.display = "none";
     document.getElementById("seccion_buscar_finca_act").style.display = "none";
     document.getElementById("seccion_lista_fincas_act").style.display = "none";
+    document.getElementById("seccion_lista_cajuelas_registro").style.display = "none";
 }

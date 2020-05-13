@@ -15,7 +15,7 @@
 				confirmButton: '#dialogConfirm',
 			}
 		},
-
+		
 		initialize: function() {
 			this
 				.setVars()
