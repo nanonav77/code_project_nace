@@ -82,20 +82,13 @@ function buscarFincaRegistroProduccion(){
 
 function obtenerCajuelasRegistradas(){
 
+    
     var ide_colaborador = document.getElementById("select_colaboradores_produccion").value;
     var ide_finca = document.getElementById("select_fincas_produccion").value;
 
-    // Esta función se ejecuta correctamente si la semana de producción por colaborador y finca aún no está registrados en el sistema
-    inicializarDatosCajuelasSemanaActual(ide_finca,ide_colaborador);
+    const $tableID = $('#table_control_produccion');
+    $("#tblBodyProduccion").empty();
 
-    /// LIMPIAMOS LA TABLA ANTES DE REALIZAR UNA NUEVA CONSULTA
-    var myTable = document.getElementById("table_control_produccion");
-    var rowCount = myTable.rows.length;
-    for (var x=rowCount-1; x>0; x--) {
-        myTable.deleteRow(x);
-    }
-    ////////////////////////////////////////////////////////////
-    
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_produccion/db_get_produccion_semanal_col.php?ide_colaborador_ingresado='+ide_colaborador+
@@ -113,28 +106,27 @@ function obtenerCajuelasRegistradas(){
                     
                     // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
                     
-                    var table = document.getElementById("table_control_produccion"); // Referencia a la tabla de lista de fincas que se desean actualizar
-                    {
-                        var row = table.insertRow(1);
-                        var cell1 = row.insertCell(0);
-                        var cell2 = row.insertCell(1);
-                        var cell3 = row.insertCell(2);
-                        var cell4 = row.insertCell(3);                                               
-                      
-                        cell1.innerHTML = item.fecha;      
-                        cell2.innerHTML = item.cajuelas;
-                        cell3.innerHTML = item.cuartillos;                                             
-
-                        // La celda 5 se le asignan atributos para mostrar y ejecutar la función de actualizar finca que fue seleccionado
-                        cell4.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:panel_actualizar_finca();obtenerDatosFincaSeleccionadaActualizar("+item.ide+");'><i class='fa fa-pencil'></i></a></td>";
-                
-                    }   
-                  
+                    const newTr = `
+                    <tbody id="tblBodyProduccion">
+                    <tr >
+                      <td class="pt-3-half" contenteditable="false">`+item.nombre_finca+`</td>
+                      <td class="pt-3-half" contenteditable="false">`+item.fecha+`</td>
+                      <td id="cajuelas_ide`+item.ide+`" class="pt-3-half" contenteditable="true">`+item.cajuelas+`</td>
+                      <td id="cuartillos_ide`+item.ide+`" class="pt-3-half" contenteditable="true">`+item.cuartillos+`</td>
+                      <td>
+                        <button onclick="actualizarCajuelasColaborador(`+item.ide+`)" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>
+                      </td>
+                    </tr>
+                    </tbody>`;
+                    
+                    $tableID.find('table').append(newTr); 
+                                      
                 }
                 
             }
-            
+                   
     }
+    inicializarDatosCajuelasSemanaActual(ide_finca,ide_colaborador);
        
 }
 
@@ -142,30 +134,62 @@ function obtenerCajuelasRegistradas(){
 
 function inicializarDatosCajuelasSemanaActual(ide_finca,ide_colaborador){
 
-    //++ OBTENEMOS LOS DÍAS DE LA SEMANA ACTUAL ++//
-
-    let fecha_actual = new Date;
-        
-    for (let i = 0; i <= 7; i++) {
-       
-        let primer_dia = fecha_actual.getDate() - fecha_actual.getDay() + i; 
-        let fecha = new Date(fecha_actual.setDate(primer_dia)).toISOString().slice(0, 10);
+    let fecha_actual = new Date; 
+      
+    const $tableID = $('#table_control_produccion');
+    const newTr = `
+    <tbody id="tblBodyProduccion">
+    <tr >
+      <td class="pt-3-half" contenteditable="false">Example</td>
+      <td class="pt-3-half" contenteditable="false">`+fecha_actual.toISOString().slice(0, 10)+`</td>
+      <td class="pt-3-half" contenteditable="true">0</td>
+      <td class="pt-3-half" contenteditable="true">0</td>
+      <td>
+        <button type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>
+      </td>
+    </tr>
+    </tbody>`;
     
-        const xhttp = new XMLHttpRequest();
-
-        xhttp.open('GET','assets/php_db/db_produccion/db_initial_week_produccion.php?ide_finca_ingresado='+ide_finca+'&ide_colaborador_ingresado='+ide_colaborador
-        +'&fecha_ingresada='+fecha,true);
-
-        xhttp.send();
+    $tableID.find('table').append(newTr);
+     
         
-        xhttp.onreadystatechange = function(){
+}
 
-                if(this.readyState == 4 && this.status == 200){                            
-                    
+/// *** 1.4 ACTUALIZAR LAS CAJUELAS DE UN COLABORADOR EN UNA FINCA QUE HAN SIDO REGISTRADAS POSTERIORMENTE **
+
+
+function actualizarCajuelasColaborador(ide_registro){
+
+    var cajuelas = document.getElementById("cajuelas_ide"+ide_registro).innerText;
+    var cuartillos = document.getElementById("cuartillos_ide"+ide_registro).innerText;
+
+    alert(cajuelas+"  "+cuartillos);
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_produccion/db_update_produccion_dia_colaborador.php?ide_ingresado='+ide_registro+
+    '&cajuelas_ingresadas='+cajuelas+'&cuartillos_ingresados='+cuartillos,true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 error y 1 que se realizó la actualización correctamente
+                
+                if (validacion_existencia == 0){
+                   
+                    document.getElementById('default-error-update-col').click();
                     
                 }
-                
-        }
+                else{
+                    
+                    document.getElementById('default-success-update-col').click();
+
+
+                }
+                                             
+            }            
     }
-    
 }

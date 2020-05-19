@@ -52,6 +52,12 @@
 		<!-- Head Libs -->
 		<script src="assets/vendor/modernizr/modernizr.js"></script>
 
+		<style>
+			.pt-3-half {
+				padding-top: 1.4rem;
+			}
+		</style>
+
 	</head>
 	<body>
 		<section class="body">
@@ -931,18 +937,20 @@
 						
 								<h2 class="panel-title">Cajuelas Diarias</h2>
 							</header>
-							<div class="panel-body">
-								
-								<table class="table table-bordered table-striped mb-none" id="table_control_produccion">
-									<thead>
+							<div class="panel-body">								
+								<div id="table_control_produccion" class="table-editable">									
+									<table  class="table table-bordered table-responsive-md table-striped text-center">
+									  <thead>
 										<tr>
-											<th>Fecha</th>
-											<th>Cajuelas</th>
-											<th>Cuartillos</th>
-											<th>Acción</th>
+										  <th class="text-center">Finca</th>
+										  <th class="text-center">Fecha</th>
+										  <th class="text-center">Cajuelas</th>
+										  <th class="text-center">Cuartillos</th>
+										  <th class="text-center">Acción</th>
 										</tr>
-									</thead>									
-								</table>
+									  </thead>									  
+									</table>
+								  </div>
 							</div>
 						</section>
 						<button style="display: none;" id="default-success-delete-col"  class="mt-sm mb-sm btn btn-success">Success</button>
