@@ -22,10 +22,10 @@
    if ($conexion)
    {
        while($row = mysqli_fetch_array($resultado)){
-	      $row_array['id'] = $row['ide'];
-          $row_array['nombre_usuario'] = $row['nombre'];
-          $row_array['apellidos_usuario'] = $row['apellidos'];
-          $row_array['rol_usuario'] = $row['rol'];
+	      $row_array['identificacion'] = $row['identificacion'];   
+          $row_array['nombre_usuario'] = $row['nombre_usuario'];
+          $row_array['apellidos_usuario'] = $row['apellidos_usuario'];
+          $row_array['rol_usuario'] = $row['rol_usuario'];
           array_push($return_arr,$row_array);
        }  
    }

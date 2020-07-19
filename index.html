@@ -237,7 +237,7 @@
 								<img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span id="span_nombre_usuario_mostrar" class="name"></span>
+								<span class="name"><label id="span_nombre_usuario_mostrar"></label></span>
 								<span class="role">administrator</span>
 							</div>
 			
@@ -860,6 +860,14 @@
 
 		<!-- Código que se encarga del login y al mismo tiempo asigna el nombre del usuario que ingresó -->
 		<script src="assets/javascripts/user_access/signin.js"></script>
+
+		<script>
+			var listvalues = localStorage.getItem('lists');
+			//pase the value 
+			var finalvalue = JSON.parse(listvalues);
+			// it look like this { "1": "value1", "2": "value2", "3": "value3" };
+			document.getElementById("span_nombre_usuario_mostrar").innerHTML = finalvalue.name;
+		</script>
 
 	</body>
 </html>

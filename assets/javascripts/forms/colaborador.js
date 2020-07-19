@@ -68,6 +68,7 @@ function insertarColaborador(){
 
                     // Como el registro se llevo a cabo correctamente actualizamos y vaciamos los campos
                     obtenerIdNuevoColaborador();
+                    
                     document.getElementById('name_insert_colaborator').value = " ";
                     document.getElementById('ide_insert_colaborator').value = " ";
                     document.getElementById('tel_insert_colaborator').value = " ";
