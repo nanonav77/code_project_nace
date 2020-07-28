@@ -57,7 +57,7 @@ function buscarPropietariosRegistroFincas(){
                     // Creamos el elemento con los datos de cada uno de los colaboradores
                     var elemento = document.createElement("option");
                     elemento.text = item.identificacion+" - "+item.nombre+" "+item.apellidos;
-                    elemento.value = item.ide;
+                    elemento.value = item.identificacion;
 
                     // Añadimos cada elemento al selector
                     select_colaboradores_produccion.options.add(elemento);
@@ -78,7 +78,7 @@ function insertarFinca(){
     var nombre = document.getElementById("nombre_insert_finca").value;
     var ide_propietario = document.getElementById("select_propietarios_finca").value;
     var direccion = document.getElementById("direccion_insert_finca").value;
-        
+  
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_fincas/db_add_finca.php?nombre_ingresado='+nombre+'&ide_propietario_ingresado='+ide_propietario
@@ -207,7 +207,7 @@ function obtenerDatosFincaSeleccionadaActualizar(numero){
                     // Creamos el elemento con los datos del propietario actual de la finca
                     var elemento = document.createElement("option");
                     elemento.text = item.identificacion_propietario+" - "+item.nombre_propietario+" "+item.apellidos_propietario;
-                    elemento.value = item.ide_propietario;
+                    elemento.value = item.identificacion_propietario;
 
                     // Añadimos el elemento al selector
                     select_finca_update.options.add(elemento);

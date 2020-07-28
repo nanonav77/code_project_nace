@@ -2,17 +2,11 @@
 /// ESTE CÓDIGO SE ENCARGA DE LLEVAR A CABO LA VALIDACIÓN DE INICIO DE SESIÓN DE UN USUARIO ///
 
 function autenticarUsuario(){
-
-
-   var listvalues = { "name": "value1", "2": "value2", "3": "value3" }
-   localStorage.setItem('lists', JSON.stringify(listvalues)); 
-
-    var id;
-
+   
+    var formLogin = document.getElementById("form_login"); //obtenemos el  form de login para enviarlo si las credenciales ingresadas son correctas
+    
     var email = document.getElementById("username").value; //aquí se captura el usuario de red o el correo 
     var contrasena = document.getElementById("pwd").value ; //aquí se captura la contraseña ingresada
-    
-    alert(email);
 
     const xhttp = new XMLHttpRequest();
 
@@ -26,26 +20,27 @@ function autenticarUsuario(){
 
             if(this.readyState == 4 && this.status == 200){
  
-                    let datos = JSON.parse(this.responseText);
-           
-                    for(let item of datos){
-
-                         id = item.identificacion; // si este ID es mayor a cero es por que el usuario está registrado
-                        
-                         if(id>0){
+                let datos = JSON.parse(this.responseText);
+                
+                for(let item of datos){
+                              
+                    // Creamos un local storage para llevar los datos del usuario que ingresa a la pantalla principal
+                    var listCredenciales = { "name": item.nombre_usuario+" "+item.apellidos_usuario, "tipo": item.rol_usuario}
+                    localStorage.setItem('listsCredenciales', JSON.stringify(listCredenciales)); 
+                                
+                    formLogin.submit();// enviamos el form
                             
-                            alert(item.nombre_usuario);
-                            
-                         }
-                         else{
-                            
-                         }
-                         
-                    }
-                  
-                    
+                }   
+                                      
             }
+
             
     }
+    indicarErrorLogin();
+   
+}
 
+function indicarErrorLogin(){
+
+        document.getElementById("default-error-login-user").click();
 }

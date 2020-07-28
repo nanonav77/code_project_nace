@@ -41,13 +41,11 @@ function insertarColaborador(){
     var identificacion = document.getElementById("ide_insert_colaborator").value;
     var telefono = document.getElementById("tel_insert_colaborator").value;
     var correo = document.getElementById("email_insert_colaborator").value;
-    var genero = 'Masculino';
-
     
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_colaboradores/db_add_colaborador.php?nombre_ingresado='+nombre+'&identificacion_ingresado='+identificacion
-    +'&telefono_ingresado='+telefono+'&email_ingresado='+correo+'&genero_ingresado='+genero,true);
+    +'&telefono_ingresado='+telefono+'&email_ingresado='+correo,true);
 
     xhttp.send();
     
@@ -188,23 +186,11 @@ function actualizarColaboradorSeleccionado(){
     var identificacion = document.getElementById("ide_update_colaborator").value;
     var telefono = document.getElementById("tel_update_colaborator").value;
     var correo = document.getElementById("email_update_colaborator").value;
-    var genero;
-
-    // Obtener el género seleccionado por el usuario
-    var radios = document.getElementsByName('gen_update_colaborator');
-
-    for (var i = 0, length = radios.length; i < length; i++) {
-        if (radios[i].checked) {
-            
-            genero = radios[i].value;
-            break;
-        }
-    }
 
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_colaboradores/db_update_colaborador.php?numero_ingresado='+numero+'&nombre_ingresado='+nombre
-    +'&identificacion_ingresado='+identificacion+'&email_ingresado='+correo+'&genero_ingresado='+genero+'&telefono_ingresado='+telefono,true);
+    +'&identificacion_ingresado='+identificacion+'&email_ingresado='+correo+'&telefono_ingresado='+telefono,true);
 
     xhttp.send();
 

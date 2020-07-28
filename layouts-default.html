@@ -256,8 +256,8 @@
 								<img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span class="name">Nano</span>
-								<span class="role">administrator</span>
+								<span id="span_nombre_usuario_mostrar" class="name"></span>
+								<span id="span_tipo_usuario_mostrar" class="role"></span>
 							</div>
 		
 							<i class="fa custom-caret"></i>
@@ -681,15 +681,15 @@
 							</header>
 							<div class="panel-body">
 								<div class="table-responsive">									
-									<table class="table table-hover mb-none" id="table_update_colaboradores">
+									<table class="table table-hover mb-none text-center" id="table_update_colaboradores">
 										<thead>
 											<tr>
-												<th>#</th>
-												<th>Nombre Completo</th>
-												<th>Identificación</th>
-												<th>Teléfono</th>
-												<th>Email</th>
-												<th>Actualizar</th>
+												<th class="text-center">#</th>
+												<th class="text-center">Nombre Completo</th>
+												<th class="text-center">Identificación</th>
+												<th class="text-center">Teléfono</th>
+												<th class="text-center">Email</th>
+												<th class="text-center">Actualizar</th>
 											</tr>
 										</thead>										
 									</table>
@@ -861,15 +861,15 @@
 							</header>
 							<div class="panel-body">
 								<div class="table-responsive">
-									<table id="table_delete_colaboradores" class="table table-hover mb-none">
+									<table id="table_delete_colaboradores" class="table table-hover mb-none text-center">
 										<thead>
 											<tr>
-												<th>#</th>
-												<th>Nombre Completo</th>
-												<th>Identificación</th>
-												<th>Teléfono</th>
-												<th>Email</th>
-												<th>Eliminar</th>
+												<th class="text-center">#</th>
+												<th class="text-center">Nombre Completo</th>
+												<th class="text-center">Identificación</th>
+												<th class="text-center">Teléfono</th>
+												<th class="text-center">Email</th>
+												<th class="text-center">Eliminar</th>
 											</tr>
 										</thead>
 										
@@ -1096,14 +1096,14 @@
 							</header>
 							<div class="panel-body">
 								<div class="table-responsive">
-									<table id="table_update_fincas" class="table table-hover mb-none">
+									<table id="table_update_fincas" class="table table-hover mb-none text-center">
 										<thead>
 											<tr>
-												<th>#</th>
-												<th>Nombre</th>
-												<th>Dirección</th>
-												<th>Propietario(a)</th>
-												<th>Actualizar</th>
+												<th class="text-center">#</th>
+												<th class="text-center">Nombre</th>
+												<th class="text-center">Dirección</th>
+												<th class="text-center">Propietario(a)</th>
+												<th class="text-center">Actualizar</th>
 											</tr>
 										</thead>
 										
@@ -1336,6 +1336,14 @@
 			<!-- Código de Control de fincas -->
 			<script src="assets/javascripts/forms/fincas.js"></script>
 			
+			<!-- Obtenemos los datos del usuario que realizó el inicio de sesión -->
+			<script>
+				var listsCredenciales = localStorage.getItem('listsCredenciales');
+				var valores = JSON.parse(listsCredenciales);
+				
+				document.getElementById("span_nombre_usuario_mostrar").innerHTML = valores.name;
+			    document.getElementById("span_tipo_usuario_mostrar").innerHTML = valores.tipo;
+			</script>
 
 		</section>
 

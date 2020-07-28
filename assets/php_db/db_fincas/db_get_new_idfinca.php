@@ -13,7 +13,7 @@ $conexion = mysqli_connect( $servidor, $usuario, $password ) or die ("No se ha p
 // Selección del a base de datos a utilizar
 $db = mysqli_select_db( $conexion, $basededatos ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
 // establecer y realizar consulta. guardamos en variable.
-$consulta = "SELECT MAX(ide)+1 as id FROM nace_fincas";
+$consulta = "SELECT MAX(numero)+1 as id FROM nace_fincas";
 $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
 
 if ($conexion)

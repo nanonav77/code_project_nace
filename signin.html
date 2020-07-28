@@ -47,7 +47,7 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Iniciar Sesión</h2>
 					</div>
 					<div class="panel-body">
-						<form action="index.html" method="post">
+						<form id="form_login" action="layouts-default.html" method="post">
 							<div class="form-group mb-lg">
 								<label>Correo electrónico</label>
 								<div class="input-group input-group-icon">
@@ -85,6 +85,7 @@
 								<div class="col-sm-4 text-right">
 									<button onclick="autenticarUsuario();" type="button" class="btn btn-primary hidden-xs">Ingresar..</button>
 									<button type="button" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button>
+									<button style="display: none;" id="default-error-login-user" class="mt-sm mb-sm btn btn-danger">Error</button>
 								</div>
 							</div>
 
@@ -116,6 +117,9 @@
 		
 		<!-- Theme Custom -->
 		<script src="assets/javascripts/theme.custom.js"></script>
+		<script src="assets/vendor/pnotify/pnotify.custom.js"></script>
+		<script src="assets/javascripts/ui-elements/examples.notifications.js"></script>
+		<script src="assets/javascripts/forms/examples.advanced.form.js"></script>
 		
 		<!-- Theme Initialization Files -->
 		<script src="assets/javascripts/theme.init.js"></script>

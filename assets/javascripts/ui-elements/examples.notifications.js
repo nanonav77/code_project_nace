@@ -80,6 +80,14 @@
 		});
 	});
 
+	$('#default-error-login-user').click(function() {
+		new PNotify({
+			title: 'Error de ingreso',
+			text: 'El usuario no se encuentra registrado o las credenciales fueron ingresadas de manera incorrecta',
+			type: 'error'
+		});
+	});
+
 	$('#default-dark').click(function() {
 		new PNotify({
 			title: 'Regular Notice',

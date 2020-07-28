@@ -8,15 +8,14 @@
     $identificacion_ingresado = $_GET['identificacion_ingresado'];
     $telefono_ingresado = $_GET['telefono_ingresado'];
     $email_ingresado = $_GET['email_ingresado'];
-    $genero_ingresado = $_GET['genero_ingresado'];
-
+    
     $conn = new mysqli( $servidor, $usuario, $password , $basededatos);
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "INSERT INTO nace_colaboradores (nombre, identificacion, telefono,email,genero)
-    SELECT * FROM (SELECT '$nombre_ingresado' as nombre, '$identificacion_ingresado' as identificacion, '$telefono_ingresado' as telefono,'$email_ingresado' as correo,'$genero_ingresado' as genero) AS tmp
+    $sql = "INSERT INTO nace_colaboradores (nombre, identificacion, telefono,email)
+    SELECT * FROM (SELECT '$nombre_ingresado' as nombre, '$identificacion_ingresado' as identificacion, '$telefono_ingresado' as telefono,'$email_ingresado' as correo) AS tmp
     WHERE NOT EXISTS (
         SELECT identificacion,telefono,email FROM nace_colaboradores WHERE identificacion = '$identificacion_ingresado' or email = '$email_ingresado' or telefono = '$telefono_ingresado'
     ) LIMIT 1;";

@@ -15,7 +15,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
     $sql = "UPDATE nace_fincas set nombre='$nombre_ingresado', direccion='$direccion_ingresada' , ide_propietario='$ide_propietario_ingresado' 
-    where ide='$numero_ingresado'";
+    where numero='$numero_ingresado'";
 
     if ($conn->query($sql) === TRUE) {
        

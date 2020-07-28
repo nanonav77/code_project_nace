@@ -9,14 +9,13 @@
     $identificacion_ingresado = $_GET['identificacion_ingresado'];
     $telefono_ingresado = $_GET['telefono_ingresado'];
     $email_ingresado = $_GET['email_ingresado'];
-    $genero_ingresado = $_GET['genero_ingresado'];
-
+   
     $conn = new mysqli( $servidor, $usuario, $password , $basededatos);
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "UPDATE nace_colaboradores set nombre='$nombre_ingresado', identificacion='$identificacion_ingresado' , telefono='$telefono_ingresado' ,email='$email_ingresado' , genero='$genero_ingresado' 
+    $sql = "UPDATE nace_colaboradores set nombre='$nombre_ingresado', identificacion='$identificacion_ingresado' , telefono='$telefono_ingresado' ,email='$email_ingresado' 
     where numero='$numero_ingresado'";
 
     if ($conn->query($sql) === TRUE) {
