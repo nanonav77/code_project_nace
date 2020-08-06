@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-07-2020 a las 04:29:37
+-- Tiempo de generación: 06-08-2020 a las 06:44:05
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -123,7 +123,23 @@ CREATE TABLE `nace_fincas` (
 --
 
 INSERT INTO `nace_fincas` (`numero`, `nombre`, `direccion`, `ide_propietario`) VALUES
-(1, 'EL Rosario', 'la fila, aserrí, desampa', 304900948);
+(1, 'EL Rosario', 'la fila, aserrí, desampa', 304900948),
+(2, ' Caragral', ' Cartago, Guarco, Caragral', 304900948);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nace_produccion`
+--
+
+CREATE TABLE `nace_produccion` (
+  `id_registro` int(11) NOT NULL,
+  `ide_colaborador` int(11) NOT NULL,
+  `ide_finca` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `cajuelas` int(11) NOT NULL,
+  `cuartillos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -166,6 +182,14 @@ ALTER TABLE `nace_fincas`
   ADD KEY `ide_propietario` (`ide_propietario`);
 
 --
+-- Indices de la tabla `nace_produccion`
+--
+ALTER TABLE `nace_produccion`
+  ADD PRIMARY KEY (`id_registro`),
+  ADD KEY `ide_colaborador` (`ide_colaborador`),
+  ADD KEY `ide_finca` (`ide_finca`);
+
+--
 -- Indices de la tabla `nace_usuarios`
 --
 ALTER TABLE `nace_usuarios`
@@ -185,7 +209,13 @@ ALTER TABLE `nace_colaboradores`
 -- AUTO_INCREMENT de la tabla `nace_fincas`
 --
 ALTER TABLE `nace_fincas`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `nace_produccion`
+--
+ALTER TABLE `nace_produccion`
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -196,6 +226,13 @@ ALTER TABLE `nace_fincas`
 --
 ALTER TABLE `nace_fincas`
   ADD CONSTRAINT `nace_fincas_ibfk_1` FOREIGN KEY (`ide_propietario`) REFERENCES `nace_usuarios` (`identificacion`);
+
+--
+-- Filtros para la tabla `nace_produccion`
+--
+ALTER TABLE `nace_produccion`
+  ADD CONSTRAINT `nace_produccion_ibfk_1` FOREIGN KEY (`ide_colaborador`) REFERENCES `nace_colaboradores` (`numero`),
+  ADD CONSTRAINT `nace_produccion_ibfk_2` FOREIGN KEY (`ide_finca`) REFERENCES `nace_fincas` (`numero`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

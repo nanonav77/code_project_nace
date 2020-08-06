@@ -289,7 +289,7 @@
 				
 					<div class="sidebar-header">
 						<div class="sidebar-title">
-							Navigation
+							Menú de Opciones
 						</div>
 						<div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -333,7 +333,7 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="javascript:seccion_registro_control_cajuelas();buscarColaboradorRegistroProduccion();buscarFincaRegistroProduccion();">
+												<a href="javascript:seccion_registro_control_cajuelas();listarDiasSemana();buscarFincaRegistroProduccion();">
 													Registro Cajuelas
 												</a>
 											</li>
@@ -499,7 +499,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Default Layout</h2>
+						<h2></h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -904,18 +904,17 @@
 																			
 										<div class="col-sm-6">
 											<div class="form-group">
-												<label class="control-label">Seleccionar Colaborador</label>
-													<select id="select_colaboradores_produccion" data-plugin-selectTwo class="form-control populate"	>
+												<label class="control-label">Seleccionar Fecha</label>
+													<select id="select_dias_produccion"  class="form-control mb-md" onchange="obtenerCajuelasRegistradas();">
 																																									
 													</select>
-												
 											</div>
 										</div>
 
 										<div class="col-sm-6">
 											<div class="form-group">
 												<label class="control-label">Seleccionar Finca</label>
-													<select id="select_fincas_produccion" data-plugin-selectTwo class="form-control populate" onchange="obtenerCajuelasRegistradas();">
+													<select id="select_fincas_produccion"  class="form-control mb-md" onchange="obtenerCajuelasRegistradas();">
 																																									
 													</select>
 												
@@ -942,7 +941,8 @@
 									<table  class="table table-bordered table-responsive-md table-striped text-center">
 									  <thead>
 										<tr>
-										  <th class="text-center">Finca</th>
+										  <th class="text-center">N°</th>
+										  <th class="text-center">Colaborador</th>
 										  <th class="text-center">Fecha</th>
 										  <th class="text-center">Cajuelas</th>
 										  <th class="text-center">Cuartillos</th>

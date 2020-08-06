@@ -5,7 +5,7 @@
 
 include '../db_conexion/db_conexion.php';
    
-$ide_colaborador_ingresado = $_GET['ide_colaborador_ingresado'];
+$fecha_ingresada = $_GET['fecha_ingresada'];
 $ide_finca_ingresado = $_GET['ide_finca_ingresado'];
 
 $return_arr = array();
@@ -16,17 +16,23 @@ $conexion = mysqli_connect( $servidor, $usuario, $password ) or die ("No se ha p
 // Selección del a base de datos a utilizar
 $db = mysqli_select_db( $conexion, $basededatos ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
 // establecer y realizar consulta. guardamos en variable.
-$consulta = "SELECT a.*, b.nombre as nombre_finca FROM nace_produccion as a join nace_fincas as b on a.ide_finca = b.ide where a.ide_colaborador='$ide_colaborador_ingresado' and a.ide_finca='$ide_finca_ingresado' and week(a.fecha) and week(CURDATE()) order by a.fecha desc";
+$consulta = "SELECT a.numero as numero_colaborador, a.nombre as nombre_colaborador,
+b.fecha as fecha_produccion, b.cajuelas, b.cuartillos, b.id_registro  FROM nace_colaboradores as a
+left join nace_produccion as b 
+on a.numero = b.ide_colaborador and b.fecha = '$fecha_ingresada'
+left join nace_fincas as c
+on b.ide_finca = c.numero and c.numero = '$ide_finca_ingresado'";
 $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
 
 if ($conexion)
 {
    while($row = mysqli_fetch_array($resultado)){
-      $row_array['ide'] = $row['ide'];
-      $row_array['nombre_finca'] = $row['nombre_finca'];
+      $row_array['numero_colaborador'] = $row['numero_colaborador'];
+      $row_array['nombre_colaborador'] = $row['nombre_colaborador'];
+      $row_array['fecha_produccion'] = $row['fecha_produccion'];
       $row_array['cajuelas'] = $row['cajuelas'];
       $row_array['cuartillos'] = $row['cuartillos'];
-      $row_array['fecha'] = $row['fecha'];
+      $row_array['id_registro'] = $row['id_registro'];
       array_push($return_arr,$row_array);
    }  
 }
