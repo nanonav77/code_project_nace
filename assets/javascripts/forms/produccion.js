@@ -108,18 +108,28 @@ function obtenerCajuelasRegistradas(){
            
                 for(let item of datos){
                     
-                    // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
+                    var tipo_accion;
+
+                    if (item.id_registro==0){
+                        tipo_accion = '<button onclick="insertarCajuelasColaborador('+item.numero_colaborador+')" type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>';
+                    }
                     
+                    else{
+                        tipo_accion = '<button onclick="actualizarCajuelasColaborador(`+item.id_registro+`)" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
+                    }
+
+                    // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
+                                     
                     const newTr = `
                     <tbody id="tblBodyProduccion">
                     <tr >
                       <td class="pt-3-half" contenteditable="false">`+item.numero_colaborador+`</td>
                       <td class="pt-3-half" contenteditable="false">`+item.nombre_colaborador+`</td>
                       <td class="pt-3-half" contenteditable="false">`+fecha_seleccionada+`</td>
-                      <td id="cajuelas_ide`+item.ide_registro+`" class="pt-3-half" contenteditable="true">`+item.cajuelas+`</td>
-                      <td id="cuartillos_ide`+item.ide_registro+`" class="pt-3-half" contenteditable="true">`+item.cuartillos+`</td>
+                      <td class="pt-3-half" contenteditable="true">`+item.cajuelas+`</td>
+                      <td class="pt-3-half" contenteditable="true">`+item.cuartillos+`</td>
                       <td>
-                        <button onclick="actualizarCajuelasColaborador(`+item.ide_registro+`)" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>
+                         `+tipo_accion+`
                       </td>
                     </tr>
                     </tbody>`;
@@ -135,29 +145,68 @@ function obtenerCajuelasRegistradas(){
        
 }
 
-/// *** 1.3.1 INICIALIZAR E INSERTAR LOS DÍAS SE LA SEMANA ACTUAL **
+/// *** 1.3.1 FUNCIÓN PARA INSERTAR INICIALMENTE LAS CAJUELAS DE UN COLABORADOR **
 
-function inicializarDatosCajuelasSemanaActual(){
+function insertarCajuelasColaborador(numero_colaborador){
 
-    let fecha_actual = new Date; 
-      
-    const $tableID = $('#table_control_produccion');
-    const newTr = `
-    <tbody id="tblBodyProduccion">
-    <tr >
-      <td class="pt-3-half" contenteditable="false">Example</td>
-      <td class="pt-3-half" contenteditable="false">`+fecha_actual.toISOString().slice(0, 10)+`</td>
-      <td class="pt-3-half" contenteditable="true">0</td>
-      <td class="pt-3-half" contenteditable="true">0</td>
-      <td>
-        <button type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>
-      </td>
-    </tr>
-    </tbody>`;
+    var fecha_seleccionada = document.getElementById("select_dias_produccion").value;
+    var ide_finca = document.getElementById("select_fincas_produccion").value;
+    var cajuelas_digitadas;
+    var cuartillos_digitados; 
     
-    $tableID.find('table').append(newTr);
-     
-        
+
+    // RECORREMOS LA TABLA PARA OBTENER EL REGISTRO EN ESPECÍFICO QUE DESEAMOS INSERTAR
+    var tablaProduccion = document.getElementById("table_control_produccion_editable")
+
+    for ( var i = 0; row = tablaProduccion.rows[i]; i++ ) {
+        row = tablaProduccion.rows[i];
+        for ( var j = 0; col = row.cells[j]; j++ ) {
+
+            if (col.firstChild.nodeValue == numero_colaborador){
+                cajuelas_digitadas = row.cells[j+3].firstChild.nodeValue;
+                cuartillos_digitados = row.cells[j+4].firstChild.nodeValue;
+                break;
+            }
+            
+        }
+    }
+    /// Insertar el registro finalmente en la base de datos
+    insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccionada,ide_finca,cajuelas_digitadas,cuartillos_digitados);
+}
+
+/// *** 1.3.1.1 FUNCIÓN PARA INSERTAR INICIALMENTE LAS CAJUELAS DE UN COLABORADOR EN LA BASE DE DATOS**
+
+function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccionada,ide_finca,cajuelas_digitadas,cuartillos_digitados){
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_produccion/db_insert_produccion_diario.php?ide_colaborador='+numero_colaborador
+    +'&ide_finca='+ide_finca+'&fecha='+fecha_seleccionada+'&cajuelas='+cajuelas_digitadas
+    +'&cuartillos='+cuartillos_digitados,true);
+
+    xhttp.send();
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 ya está creado y 1 que se puede crear como nuevo registro
+                
+                if (validacion_existencia == 0){
+                   
+                    document.getElementById('default-error-insert-col').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-insert-col').click();
+
+                }
+                
+            }
+            
+    }
+    
 }
 
 /// *** 1.4 ACTUALIZAR LAS CAJUELAS DE UN COLABORADOR EN UNA FINCA QUE HAN SIDO REGISTRADAS POSTERIORMENTE **

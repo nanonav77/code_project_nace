@@ -17,7 +17,7 @@ $conexion = mysqli_connect( $servidor, $usuario, $password ) or die ("No se ha p
 $db = mysqli_select_db( $conexion, $basededatos ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
 // establecer y realizar consulta. guardamos en variable.
 $consulta = "SELECT a.numero as numero_colaborador, a.nombre as nombre_colaborador,
-b.fecha as fecha_produccion, b.cajuelas, b.cuartillos, b.id_registro  FROM nace_colaboradores as a
+c.numero as numero_finca,b.fecha as fecha_produccion, b.cajuelas, b.cuartillos, case when b.id_registro is null then 0 else b.id_registro end as id_registro FROM nace_colaboradores as a
 left join nace_produccion as b 
 on a.numero = b.ide_colaborador and b.fecha = '$fecha_ingresada'
 left join nace_fincas as c
@@ -33,6 +33,7 @@ if ($conexion)
       $row_array['cajuelas'] = $row['cajuelas'];
       $row_array['cuartillos'] = $row['cuartillos'];
       $row_array['id_registro'] = $row['id_registro'];
+      $row_array['numero_finca'] = $row['numero_finca'];
       array_push($return_arr,$row_array);
    }  
 }
