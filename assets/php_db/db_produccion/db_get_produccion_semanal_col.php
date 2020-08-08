@@ -21,7 +21,8 @@ c.numero as numero_finca,b.fecha as fecha_produccion, b.cajuelas, b.cuartillos, 
 left join nace_produccion as b 
 on a.numero = b.ide_colaborador and b.fecha = '$fecha_ingresada'
 left join nace_fincas as c
-on b.ide_finca = c.numero and c.numero = '$ide_finca_ingresado'";
+on b.ide_finca = c.numero and c.numero = '$ide_finca_ingresado'
+order by a.numero asc";
 $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");
 
 if ($conexion)

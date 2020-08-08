@@ -90,9 +90,11 @@ function obtenerCajuelasRegistradas(){
     var fecha_seleccionada = document.getElementById("select_dias_produccion").value;
     var ide_finca = document.getElementById("select_fincas_produccion").value;
 
+            
+    $("#table_control_produccion").find("tr:gt(0)").remove(); // Limpiamos la tabla para obtener los datos según los filtros  
+           
     const $tableID = $('#table_control_produccion');
-    $("#tblBodyProduccion").empty();
-
+    
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_produccion/db_get_produccion_semanal_col.php?fecha_ingresada='+fecha_seleccionada+
@@ -141,9 +143,9 @@ function obtenerCajuelasRegistradas(){
             }
                    
     }
-    //inicializarDatosCajuelasSemanaActual();
-       
+   
 }
+
 
 /// *** 1.3.1 FUNCIÓN PARA INSERTAR INICIALMENTE LAS CAJUELAS DE UN COLABORADOR **
 
@@ -203,13 +205,14 @@ function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccion
 
                 }
                 
-            }
-            
+            }            
     }
+
+    obtenerCajuelasRegistradas(); // Volvemos a llamar la función para actualizar la tabla con los datos
     
 }
 
-/// *** 1.4 ACTUALIZAR LAS CAJUELAS DE UN COLABORADOR EN UNA FINCA QUE HAN SIDO REGISTRADAS POSTERIORMENTE **
+/// *** 1.3.2 ACTUALIZAR LAS CAJUELAS DE UN COLABORADOR EN UNA FINCA QUE HAN SIDO REGISTRADAS POSTERIORMENTE **
 
 
 function actualizarCajuelasColaborador(ide_registro){
