@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-08-2020 a las 06:44:05
+-- Tiempo de generación: 21-08-2020 a las 05:01:24
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -124,7 +124,8 @@ CREATE TABLE `nace_fincas` (
 
 INSERT INTO `nace_fincas` (`numero`, `nombre`, `direccion`, `ide_propietario`) VALUES
 (1, 'EL Rosario', 'la fila, aserrí, desampa', 304900948),
-(2, ' Caragral', ' Cartago, Guarco, Caragral', 304900948);
+(2, ' Caragral', ' Cartago, Guarco, Caragral', 304900948),
+(3, 'El Norte ', ' San Cristobal, Desamparados', 304900948);
 
 -- --------------------------------------------------------
 
@@ -140,6 +141,25 @@ CREATE TABLE `nace_produccion` (
   `cajuelas` int(11) NOT NULL,
   `cuartillos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `nace_produccion`
+--
+
+INSERT INTO `nace_produccion` (`id_registro`, `ide_colaborador`, `ide_finca`, `fecha`, `cajuelas`, `cuartillos`) VALUES
+(1, 2, 2, '2020-08-06', 30, 2),
+(2, 5, 2, '2020-08-06', 12, 1),
+(3, 1, 1, '2020-08-07', 7, 1),
+(4, 2, 1, '2020-08-07', 8, 2),
+(5, 3, 2, '2020-08-07', 15, 3),
+(6, 1, 2, '2020-08-19', 8, 3),
+(7, 2, 2, '2020-08-19', 14, 2),
+(8, 33, 2, '2020-08-19', 25, 1),
+(9, 1, 2, '2020-08-20', 5, 2),
+(10, 3, 2, '2020-08-20', 32, 5),
+(11, 34, 2, '2020-08-20', 20, 3),
+(12, 1, 1, '2020-08-20', 17, 3),
+(13, 2, 1, '2020-08-20', 15, 1);
 
 -- --------------------------------------------------------
 
@@ -209,13 +229,13 @@ ALTER TABLE `nace_colaboradores`
 -- AUTO_INCREMENT de la tabla `nace_fincas`
 --
 ALTER TABLE `nace_fincas`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `nace_produccion`
 --
 ALTER TABLE `nace_produccion`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
