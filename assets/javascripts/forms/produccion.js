@@ -50,6 +50,12 @@ function buscarFincaRegistroProduccion(){
 
     document.getElementById('select_fincas_produccion').innerText = null;
 
+    var select_colaboradores_produccion = document.getElementById("select_fincas_produccion");
+
+    var elemento = document.createElement("option");
+    elemento.text = "Seleccionar..";
+    select_colaboradores_produccion.options.add(elemento);
+
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_fincas/db_get_fincas_totales.php',true);
@@ -62,9 +68,6 @@ function buscarFincaRegistroProduccion(){
 
                 let datos = JSON.parse(this.responseText);
 
-                var select_colaboradores_produccion = document.getElementById("select_fincas_produccion");
-               
-         
                 for(let item of datos){
 
                     // Creamos el elemento con los datos de cada una de las fincas
@@ -111,13 +114,19 @@ function obtenerCajuelasRegistradas(){
                 for(let item of datos){
                     
                     var tipo_accion;
+                    var cajuelas_iniciales;
+                    var cuartillos_iniciales;
 
-                    if (item.id_registro==0){
+                    if (item.numero_finca == 0){
                         tipo_accion = '<button onclick="insertarCajuelasColaborador('+item.numero_colaborador+')" type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>';
+                        cajuelas_iniciales = " ";
+                        cuartillos_iniciales = " ";
                     }
                     
                     else{
-                        tipo_accion = '<button onclick="actualizarCajuelasColaborador(`+item.id_registro+`)" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
+                        tipo_accion = '<button onclick="actualizarCajuelasColaborador('+item.id_registro+')" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
+                        cajuelas_iniciales = item.cajuelas;
+                        cuartillos_iniciales = item.cuartillos;
                     }
 
                     // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
@@ -128,8 +137,8 @@ function obtenerCajuelasRegistradas(){
                       <td class="pt-3-half" contenteditable="false">`+item.numero_colaborador+`</td>
                       <td class="pt-3-half" contenteditable="false">`+item.nombre_colaborador+`</td>
                       <td class="pt-3-half" contenteditable="false">`+fecha_seleccionada+`</td>
-                      <td class="pt-3-half" contenteditable="true">`+item.cajuelas+`</td>
-                      <td class="pt-3-half" contenteditable="true">`+item.cuartillos+`</td>
+                      <td id=cajuelas_ide`+item.id_registro+` class="pt-3-half" contenteditable="true">`+cajuelas_iniciales+`</td>
+                      <td id=cuartillos_ide`+item.id_registro+` class="pt-3-half" contenteditable="true">`+cuartillos_iniciales+`</td>
                       <td>
                          `+tipo_accion+`
                       </td>
@@ -196,12 +205,12 @@ function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccion
                 
                 if (validacion_existencia == 0){
                    
-                    document.getElementById('default-error-insert-col').click();
+                    document.getElementById('default-error-insert-produccion-col').click();
                     
                 }
                 else{
                     
-                    document.getElementById('default-success-insert-col').click();
+                    document.getElementById('default-success-insert-produccion-col').click();
 
                 }
                 
@@ -220,7 +229,6 @@ function actualizarCajuelasColaborador(ide_registro){
     var cajuelas = document.getElementById("cajuelas_ide"+ide_registro).innerText;
     var cuartillos = document.getElementById("cuartillos_ide"+ide_registro).innerText;
 
-    alert(cajuelas+"  "+cuartillos);
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_produccion/db_update_produccion_dia_colaborador.php?ide_ingresado='+ide_registro+
@@ -237,16 +245,18 @@ function actualizarCajuelasColaborador(ide_registro){
                 
                 if (validacion_existencia == 0){
                    
-                    document.getElementById('default-error-update-col').click();
+                    document.getElementById('default-error-update-produccion-col').click();
                     
                 }
                 else{
                     
-                    document.getElementById('default-success-update-col').click();
+                    document.getElementById('default-success-update-produccion-col').click();
 
 
                 }
                                              
             }            
     }
+
+    obtenerCajuelasRegistradas(); // Volvemos a llamar la función para actualizar la tabla con los datos
 }

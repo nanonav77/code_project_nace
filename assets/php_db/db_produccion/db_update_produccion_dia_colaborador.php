@@ -13,7 +13,7 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "UPDATE nace_produccion set cajuelas='$cajuelas_ingresadas', cuartillos='$cuartillos_ingresados' where ide='$ide_ingresado'";
+    $sql = "UPDATE nace_produccion set cajuelas='$cajuelas_ingresadas', cuartillos='$cuartillos_ingresados' where id_registro='$ide_ingresado'";
 
     if ($conn->query($sql) === TRUE) {
        

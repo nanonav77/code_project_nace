@@ -48,6 +48,46 @@
 		});
 	});
 
+	/// MENSAJE INSERCIÓN PRODUCCION COLABORADOR
+
+	$('#default-success-insert-produccion-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'El registro ha sido exitoso!',
+			type: 'success'
+		});
+	});
+
+	$('#default-error-insert-produccion-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'El registro ha fallado!',
+			type: 'error'
+		});
+	});
+
+	///////////////////////////////////////////////////////////
+
+	/// MENSAJE ACTUALIZACION PRODUCCION COLABORADOR
+
+	$('#default-success-update-produccion-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'Se ha actualizado correctamente!',
+			type: 'success'
+		});
+	});
+
+	$('#default-error-update-produccion-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'La actualización ha fallado!',
+			type: 'error'
+		});
+	});
+
+	///////////////////////////////////////////////////////////
+
 	$('#default-info').click(function() {
 		new PNotify({
 			title: 'Regular Notice',
