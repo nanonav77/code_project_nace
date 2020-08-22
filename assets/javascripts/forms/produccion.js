@@ -94,7 +94,7 @@ function obtenerCajuelasRegistradas(){
     var ide_finca = document.getElementById("select_fincas_produccion").value;
 
             
-    $("#table_control_produccion").find("tr:gt(0)").remove(); // Limpiamos la tabla para obtener los datos según los filtros  
+    $("#table_control_produccion").find("tr:gt(0)   ").remove(); // Limpiamos la tabla para obtener los datos según los filtros  
            
     const $tableID = $('#table_control_produccion');
     
@@ -117,36 +117,38 @@ function obtenerCajuelasRegistradas(){
                     var cajuelas_iniciales;
                     var cuartillos_iniciales;
 
-                    if (item.numero_finca == 0){
-                        tipo_accion = '<button onclick="insertarCajuelasColaborador('+item.numero_colaborador+')" type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>';
-                        cajuelas_iniciales = " ";
-                        cuartillos_iniciales = " ";
-                    }
-                    
-                    else{
-                        tipo_accion = '<button onclick="actualizarCajuelasColaborador('+item.id_registro+')" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
-                        cajuelas_iniciales = item.cajuelas;
-                        cuartillos_iniciales = item.cuartillos;
-                    }
+                    if (item.es_finca == 1){ /// Validamos para que no se repitan los datos de otras fincas
+                        
+                        if (item.numero_finca == 0){ // Validamos si está registrada la producción de ese día en dicha finca para saber que opción proporcionar al usuario
+                            tipo_accion = '<button onclick="insertarCajuelasColaborador('+item.numero_colaborador+')" type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>';
+                            cajuelas_iniciales = " ";
+                            cuartillos_iniciales = " ";
+                        }
+                        
+                        else{
+                            tipo_accion = '<button onclick="actualizarCajuelasColaborador('+item.id_registro+')" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
+                            cajuelas_iniciales = item.cajuelas;
+                            cuartillos_iniciales = item.cuartillos;
+                        }
 
-                    // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
-                                     
-                    const newTr = `
-                    <tbody id="tblBodyProduccion">
-                    <tr >
-                      <td class="pt-3-half" contenteditable="false">`+item.numero_colaborador+`</td>
-                      <td class="pt-3-half" contenteditable="false">`+item.nombre_colaborador+`</td>
-                      <td class="pt-3-half" contenteditable="false">`+fecha_seleccionada+`</td>
-                      <td id=cajuelas_ide`+item.id_registro+` class="pt-3-half" contenteditable="true">`+cajuelas_iniciales+`</td>
-                      <td id=cuartillos_ide`+item.id_registro+` class="pt-3-half" contenteditable="true">`+cuartillos_iniciales+`</td>
-                      <td>
-                         `+tipo_accion+`
-                      </td>
-                    </tr>
-                    </tbody>`;
-                    
-                    $tableID.find('table').append(newTr); 
-                                      
+                        // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
+                                        
+                        const newTr = `
+                        <tbody id="tblBodyProduccion">
+                        <tr >
+                        <td class="pt-3-half" contenteditable="false">`+item.numero_colaborador+`</td>
+                        <td class="pt-3-half" contenteditable="false">`+item.nombre_colaborador+`</td>
+                        <td class="pt-3-half" contenteditable="false">`+fecha_seleccionada+`</td>
+                        <td id=cajuelas_ide`+item.id_registro+` class="pt-3-half" contenteditable="true">`+cajuelas_iniciales+`</td>
+                        <td id=cuartillos_ide`+item.id_registro+` class="pt-3-half" contenteditable="true">`+cuartillos_iniciales+`</td>
+                        <td>
+                            `+tipo_accion+`
+                        </td>
+                        </tr>
+                        </tbody>`;
+                        
+                        $tableID.find('table').append(newTr); 
+                    }                
                 }
                 
             }
