@@ -14,13 +14,13 @@ function listarDiasSemana(){
 
     // Listamos los nombres de los días para mostrarlos en el selector
     var weekday = new Array(7);
-        weekday[0] = "(Lunes)";
-        weekday[1] = "(Martes)";
-        weekday[2] = "(Miércoles)";
-        weekday[3] = "(Jueves)";
-        weekday[4] = "(Viernes)";
-        weekday[5] = "(Sábado)";
-        weekday[6] = "(Domingo)";
+        weekday[0] = "(Domingo)";
+        weekday[1] = "(Lunes)";
+        weekday[2] = "(Martes)";
+        weekday[3] = "(Miércoles)";
+        weekday[4] = "(Jueves)";
+        weekday[5] = "(Viernes)";
+        weekday[6] = "(Sábado)";
 
     for (let i = 0; i <= 6; i++) {
         
@@ -116,24 +116,23 @@ function obtenerCajuelasRegistradas(){
                     var tipo_accion;
                     var cajuelas_iniciales;
                     var cuartillos_iniciales;
-
-                    if (item.es_finca == 1){ /// Validamos para que no se repitan los datos de otras fincas
+                 
                         
-                        if (item.numero_finca == 0){ // Validamos si está registrada la producción de ese día en dicha finca para saber que opción proporcionar al usuario
-                            tipo_accion = '<button onclick="insertarCajuelasColaborador('+item.numero_colaborador+')" type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>';
-                            cajuelas_iniciales = " ";
-                            cuartillos_iniciales = " ";
-                        }
-                        
-                        else{
-                            tipo_accion = '<button onclick="actualizarCajuelasColaborador('+item.id_registro+')" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
-                            cajuelas_iniciales = item.cajuelas;
-                            cuartillos_iniciales = item.cuartillos;
-                        }
+                    if (item.numero_finca > 0 ){
+                        tipo_accion = '<button onclick="actualizarCajuelasColaborador('+item.id_registro+')" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
+                        cajuelas_iniciales = item.cajuelas;
+                        cuartillos_iniciales = item.cuartillos;
+                    }
 
-                        // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
+                    if (item.numero_finca == 0 ){ // Validamos si está registrada la producción de ese día en dicha finca para saber que opción proporcionar al usuario
+                        tipo_accion = '<button onclick="insertarCajuelasColaborador('+item.numero_colaborador+')" type="button" class="btn btn-success btn-rounded btn-sm my-0 waves-effect waves-light">Insertar</button>';
+                        cajuelas_iniciales = " ";
+                        cuartillos_iniciales = " ";
+                    }                                   
+
+                    // Obtenemos el resultado de la consulta y la mostramos en la tabla respectiva
                                         
-                        const newTr = `
+                    const newTr = `
                         <tbody id="tblBodyProduccion">
                         <tr >
                         <td class="pt-3-half" contenteditable="false">`+item.numero_colaborador+`</td>
@@ -147,8 +146,8 @@ function obtenerCajuelasRegistradas(){
                         </tr>
                         </tbody>`;
                         
-                        $tableID.find('table').append(newTr); 
-                    }                
+                    $tableID.find('table').append(newTr); 
+                                   
                 }
                 
             }
