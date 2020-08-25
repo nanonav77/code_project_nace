@@ -1,11 +1,11 @@
-	<!doctype html>
+<!doctype html>
 <html class="fixed">
 	<head>
 
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Basic Forms | Okler Themes | Porto-Admin</title>
+		<title>Default Layout | Okler Themes | Porto-Admin</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -21,26 +21,45 @@
 		<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.css" />
 		<link rel="stylesheet" href="assets/vendor/magnific-popup/magnific-popup.css" />
 		<link rel="stylesheet" href="assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
-		<link rel="stylesheet" href="assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
-		
-		<!-- Specific Page Vendor CSS -->
-		<link rel="stylesheet" href="assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
 		<link rel="stylesheet" href="assets/vendor/pnotify/pnotify.custom.css" />
-		
+		<link rel="stylesheet" href="assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+
+		<!-- Specific Page Vendor CSS -->
+		<link rel="stylesheet" href="assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
+		<link rel="stylesheet" href="assets/vendor/select2/select2.css" />
+		<link rel="stylesheet" href="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.css" />
+		<link rel="stylesheet" href="assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css" />
+		<link rel="stylesheet" href="assets/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css" />
+		<link rel="stylesheet" href="assets/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="assets/vendor/dropzone/css/basic.css" />
+		<link rel="stylesheet" href="assets/vendor/dropzone/css/dropzone.css" />
+		<link rel="stylesheet" href="assets/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css" />
+		<link rel="stylesheet" href="assets/vendor/summernote/summernote.css" />
+		<link rel="stylesheet" href="assets/vendor/summernote/summernote-bs3.css" />
+		<link rel="stylesheet" href="assets/vendor/codemirror/lib/codemirror.css" />
+		<link rel="stylesheet" href="assets/vendor/codemirror/theme/monokai.css" />
+
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="assets/stylesheets/theme.css" />
 
 		<!-- Skin CSS -->
 		<link rel="stylesheet" href="assets/stylesheets/skins/default.css" />
 
+  
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="assets/stylesheets/theme-custom.css">
 
 		<!-- Head Libs -->
-		<script src="assets/vendor/modernizr/modernizer.js"></script>
+		<script src="assets/vendor/modernizr/modernizr.js"></script>
+
+		<style>
+			.pt-3-half {
+				padding-top: 1.4rem;
+			}
+		</style>
 
 	</head>
-	<body>
+	<body onload="listarDiasSemana();buscarFincaRegistroProduccion();">
 		<section class="body">
 
 			<!-- start: header -->
@@ -237,10 +256,10 @@
 								<img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
 							</figure>
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-								<span class="name"><label id="span_nombre_usuario_mostrar"></label></span>
-								<span class="role">administrator</span>
+								<span id="span_nombre_usuario_mostrar" class="name"></span>
+								<span id="span_tipo_usuario_mostrar" class="role"></span>
 							</div>
-			
+		
 							<i class="fa custom-caret"></i>
 						</a>
 			
@@ -248,13 +267,13 @@
 							<ul class="list-unstyled">
 								<li class="divider"></li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> Mi Perfil</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Bloquear Pantalla</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+									<a role="menuitem" tabindex="-1" href="signin.html"><i class="fa fa-power-off"></i> Salir</a>
 								</li>
 							</ul>
 						</div>
@@ -270,7 +289,7 @@
 				
 					<div class="sidebar-header">
 						<div class="sidebar-title">
-							Menú
+							Menú de Opciones
 						</div>
 						<div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
 							<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
@@ -299,6 +318,7 @@
 											<span>Actualizar Colaborador</span>
 										</a>
 									</li>
+									
 									<li>
 										<a href="javascript:seccion_eliminar_colaborador();buscarColaboradorEliminar();">
 											<i class="fa fa-times" aria-hidden="true"></i>
@@ -306,31 +326,111 @@
 										</a>
 									</li>
 									
-									<li class="nav-parent nav-expanded nav-active">
+									<li class="nav-parent">
 										<a>
 											<i class="fa fa-list-alt" aria-hidden="true"></i>
-											<span>Control de Producción</span>
+											<span>Control Producción</span>
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="forms-basic.html">
-													 Registro Cajuelas
+												<a href="javascript:seccion_registro_control_cajuelas();listarDiasSemana();buscarFincaRegistroProduccion();">
+												   Registro Cajuelas Colaborador
 												</a>
 											</li>
 											<li>
 												<a href="forms-advanced.html">
-													 Actualizar Cajuelas
+												   Registro Cajuelas Finca
 												</a>
 											</li>
 											<li>
-												<a href="forms-validation.html">
-													 Consultar Cajuelas
+												<a href="forms-advanced.html">
+												   Consulta Cajuelas Colaborador
 												</a>
 											</li>
 											
 										</ul>
 									</li>
+									<li class="nav-parent">
+										<a>
+											<i class="fa fa-columns" aria-hidden="true"></i>
+											<span>Fincas</span>
+										</a>
+										<ul class="nav nav-children">
+											<li>
+												<a href="javascript:seccion_registro_finca();obtenerIdNuevaFinca();buscarPropietariosRegistroFincas();">
+													 Registrar Fincas
+												</a>
+											</li>
+											<li>
+												<a href="javascript:seccion_actualizacion_finca(1);buscarFincaActualizar();">
+													 Actualizar Fincas
+												</a>
+											</li>
+											<li>
+												<a href="tables-responsive.html">
+													 Eliminar Fincas
+												</a>
+											</li>
+											
+										</ul>
+									</li>
+									<li class="nav-parent">
+										<a>
+											<i class="fa fa-map-marker" aria-hidden="true"></i>
+											<span>Maps</span>
+										</a>
+										<ul class="nav nav-children">
+											<li>
+												<a href="maps-google-maps.html">
+													 Basic
+												</a>
+											</li>
+											<li>
+												<a href="maps-google-maps-builder.html">
+													 Map Builder
+												</a>
+											</li>
+											<li>
+												<a href="maps-vector.html">
+													 Vector
+												</a>
+											</li>
+										</ul>
+									</li>
 									
+									<li class="nav-parent">
+										<a>
+											<i class="fa fa-align-left" aria-hidden="true"></i>
+											<span>Menu Levels</span>
+										</a>
+										<ul class="nav nav-children">
+											<li>
+												<a>First Level</a>
+											</li>
+											<li class="nav-parent">
+												<a>Second Level</a>
+												<ul class="nav nav-children">
+													<li class="nav-parent">
+														<a>Third Level</a>
+														<ul class="nav nav-children">
+															<li>
+																<a>Third Level Link #1</a>
+															</li>
+															<li>
+																<a>Third Level Link #2</a>
+															</li>
+														</ul>
+													</li>
+													<li>
+														<a>Second Level Link #1</a>
+													</li>
+													<li>
+														<a>Second Level Link #2</a>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</li>
 									<li>
 										<a href="http://themeforest.net/item/porto-responsive-html5-template/4106987?ref=Okler" target="_blank">
 											<i class="fa fa-external-link" aria-hidden="true"></i>
@@ -404,7 +504,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Basic Forms</h2>
+						<h2></h2>
 					
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
@@ -413,8 +513,8 @@
 										<i class="fa fa-home"></i>
 									</a>
 								</li>
-								<li><span>Forms</span></li>
-								<li><span>Basic</span></li>
+								<li><span>Layouts</span></li>
+								<li><span>Default</span></li>
 							</ol>
 					
 							<a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
@@ -422,337 +522,709 @@
 					</header>
 
 					<!-- start: page -->
-						<div class="row">
-							<div class="col-lg-12">
-								
-								<!-- sección para llevar a cabo la inserción de un usuario -->
-								<section class="panel" id="seccion_crear_colaborador" style="display: none;">
-									<header class="panel-heading">
-										<div class="panel-actions">
-											<a href="#" class="fa fa-caret-down"></a>
-											
-										</div>
-						
-										<h2 class="panel-title">Registrar Colaborador</h2>
-									</header>
-									<div class="panel-body">
-										<form class="form-horizontal form-bordered" method="get">
-											
-											<div class="form-group">
-												<label class="col-md-3 control-label" for="inputReadOnly">N° Colaborador</label>
-												<div class="col-md-6">
-													<input type="text" value="Read-Only Input" id="number_insert_colaborador" class="form-control" readonly="readonly">
-												</div>
-											</div>
 
-											<div class="form-group">
-												<label class="col-md-3 control-label">Nombre Completo</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-user"></i></span>
-														</span>
-														<input type="text" id="name_insert_colaborator" class="form-control">
-													</div>
-												</div>
-											</div>
-						
-											<div class="form-group">
-												<label class="col-md-3 control-label">Número de Identificación</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-key"></i></span>
-														</span>
-														<input type="text" id="ide_insert_colaborator" class="form-control">
-													</div>
-												</div>
-											</div>									
-						
-											<div class="form-group">
-												<label class="col-md-3 control-label">Número de Teléfono</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-chevron-right"></i></span>
-														</span>
-														<input type="text" id="tel_insert_colaborator" class="form-control" >
-													</div>
-												</div>
-											</div>
+					<!-- sección para llevar a cabo la inserción de un usuario -->
 
-											<div class="form-group">
-												<label class="col-md-3 control-label">Correo Electrónico</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-envelope"></i></span>
-														</span>
-														<input type="text" id="email_insert_colaborator" placeholder="email@example.com" class="form-control">
-													</div>
-												</div>
-											</div>
-						
-											<div class="form-group">
-												<label class="col-md-3 control-label">Género</label>
-												<div class="col-md-4">
-													<div class="radio-custom radio-primary">
-														<input checked="" name="gen_insert_colaborator" type="radio" value="Hombre" id="radioExample2" >
-														<label for="radioExample2" >Hombre</label>
-													</div>
-
-													<div class="radio-custom radio-danger">
-														<input name="gen_insert_colaborator"  type="radio" value="Mujer" id="radioExample2" >
-														<label for="radioExample2" >Mujer</label>
-													</div>
-												</div>
-											</div>
-											
-											<div class="form-group">
-												<label class="col-md-3 control-label"></label>
-												<div class="col-md-6">
-													<button type="button" id="button_insert_colaborator" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Crear Colaborador</button>
-													
-												</div>
-											</div>
-														
-										</form>
-										<button style="display: none;" id="default-success-insert-col"  class="mt-sm mb-sm btn btn-success">Success</button>
-										<button style="display: none;" id="default-error-insert-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+						<div class="col-md-12" id="seccion_crear_colaborador" style="display: none;">
+							<section class="panel">
+								<header class="panel-heading">
+									<div class="panel-actions">
+										<a href="#" class="fa fa-caret-down"></a>
+										
 									</div>
-								</section>
-							
 
-								<!-- sección para llevar a cabo la actualización de un usuario -->
-								
-								<section class="panel" id="seccion_buscar_colaborador_act" style="display: none;">
-									<header class="panel-heading">
-										<div class="panel-actions">
-											<a href="#" class="fa fa-caret-down"></a>
-											
-										</div>
-						
-										<h2 class="panel-title">Buscar Colaborador</h2>
-									</header>
-									<div class="panel-body">
-										<form class="form-horizontal form-bordered" method="get">
-																						
+									<h2 class="panel-title">Registrar Colaborador</h2>
+
+								</header>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-sm-4">
 											<div class="form-group">
-												<label class="col-md-3 control-label">Nombre/N° Colaborador </label>
-												<div class="col-md-6">
-													<div class="input-group input-search">
-														<input type="text" class="form-control"  id="buscar_update_colaboradores" placeholder="Buscar...">
-														<span class="input-group-btn">
-															<button class="btn btn-default" id="button_buscar_update_colaboradores" type="button"><i class="fa fa-search"></i></button>
-														</span>
-													</div>
-												</div>
-											</div>
-																									
-										</form>
-									</div>
-								</section>
-
-								<div class="row"  >
-									<div class="col-md-12">
-										<section class="panel" id="seccion_lista_colaboradores_act" style="display: none;">
-											<header class="panel-heading">
-												<div class="panel-actions">
-													<a href="#" class="fa fa-caret-down"></a>
+												<label class="control-label">N° Colaborador</label>
 												
-												</div>
-								
-												<h2 class="panel-title">Lista Colaboradores</h2>
-											</header>
-											<div class="panel-body">
-												<div class="table-responsive">
-													<table id="table_update_colaboradores" class="table table-hover mb-none">
-														<thead>
-															<tr>
-																<th>#</th>
-																<th>Nombre Completo</th>
-																<th>Identificación</th>
-																<th>Teléfono</th>
-																<th>Email</th>
-																<th>Actualizar</th>
-															</tr>
-														</thead>
-														
-													</table>
-												</div>
+												<div class="input-group input-group-icon">
+													<span class="input-group-addon">
+														<span class="icon"><i class="fa fa-lock"></i></span>
+													</span>
+													<input readonly="readonly" type="text" id="numero_insert_colaborator" class="form-control">
+												</div>		
+												
 											</div>
-										</section>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label class="control-label">Nombre Completo</label>
+												
+												<div class="input-group input-group-icon">
+													<span class="input-group-addon">
+														<span class="icon"><i class="fa fa-user"></i></span>
+													</span>
+													<input type="text" id="name_insert_colaborator" class="form-control">
+												</div>		
+												
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label class="control-label">Identificación</label>
+												
+												<div class="input-group input-group-icon">
+													<span class="input-group-addon">
+														<span class="icon"><i class="fa fa-key"></i></span>
+													</span>
+													<input type="text" id="ide_insert_colaborator" class="form-control">
+												</div>		
+												
+											</div>
+										</div>
+									</div>
+								</br>
+									<div class="row">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label class="control-label">Teléfono</label>
+												
+												<div class="input-group input-group-icon">
+													<span class="input-group-addon">
+														<span class="icon"><i class="fa fa-chevron-right"></i></span>
+													</span>
+													<input type="text" id="tel_insert_colaborator" class="form-control">
+												</div>		
+												
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label class="control-label">Correo Electrónico</label>
+												
+												<div class="input-group input-group-icon">
+													<span class="input-group-addon">
+														<span class="icon"><i class="fa fa-envelope"></i></span>
+													</span>
+													<input type="text" id="email_insert_colaborator" class="form-control">
+												</div>		
+												
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label class="control-label">Otro</label>
+												
+												<div class="input-group input-group-icon">
+													<span class="input-group-addon">
+														<span class="icon"><i class="fa fa-chevron-right"></i></span>
+													</span>
+													<input type="textarea" class="form-control">
+												</div>		
+												
+											</div>
+										</div>
 									</div>
 								</div>
-								
-								<section class="panel col-md-12" id="panel_actualizar_colaborador" style="display: none;">
-									<header class="panel-heading">
-										<div class="panel-actions">
-											<a href="#" class="fa fa-caret-down"></a>
+								<footer class="panel-footer">
+									<div class="form-group">
+										<label class="col-md-3 control-label"></label>
+										<div class="col-md-5">
+											<button type="button" id="button_insert_colaborator" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Crear Colaborador</button>
 											
 										</div>
-						
-										<h2 class="panel-title">Actualizar Colaborador</h2>
-									</header>
-									<div class="panel-body">
-										<form class="form-horizontal form-bordered" method="get">
-											
-											<div class="form-group">
-												<label class="col-md-3 control-label" for="inputReadOnly">N° Colaborador</label>
-												<div class="col-md-6">
-													<input type="text" value="Read-Only Input" id="number_update_colaborator" class="form-control" readonly="readonly">
-												</div>
-											</div>
-
-											<div class="form-group">
-												<label class="col-md-3 control-label">Nombre Completo</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-user"></i></span>
-														</span>
-														<input id="name_update_colaborator" type="text" class="form-control">
-													</div>
-												</div>
-											</div>
-						
-											<div class="form-group">
-												<label class="col-md-3 control-label">Número de Identificación</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-key"></i></span>
-														</span>
-														<input id="ide_update_colaborator" type="text" class="form-control">
-													</div>
-												</div>
-											</div>									
-						
-											<div class="form-group">
-												<label class="col-md-3 control-label">Número de Teléfono</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-chevron-right"></i></span>
-														</span>
-														<input id="tel_update_colaborator" type="text" class="form-control">
-													</div>
-												</div>
-											</div>
-
-											<div class="form-group">
-												<label class="col-md-3 control-label">Correo Electrónico</label>
-												<div class="col-md-6">
-													<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon"><i class="fa fa-envelope"></i></span>
-														</span>
-														<input id="email_update_colaborator" type="text" placeholder="email@example.com" class="form-control">
-													</div>
-												</div>
-											</div>
-						
-											<div class="form-group">
-												<label class="col-md-3 control-label">Género</label>
-												<div class="col-md-4">
-													<div class="radio-custom radio-primary">
-														<input checked="" type="radio"  name="gen_update_colaborator">
-														<label for="radioExample2">Hombre</label>
-													</div>
-
-													<div class="radio-custom radio-danger">
-														<input type="radio" name="gen_update_colaborator">
-														<label for="radioExample2">Mujer</label>
-													</div>
-												</div>
-											</div>
-											
-											<div class="form-group">
-												
-												<div class="col-md-2">
-												    <button onclick="seccion_actualizar_colaborador(2);buscarColaboradorActualizar();" type="button" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-chevron-left"></i> Atrás</button>
-												</div>
-												<div class="col-md-7">
-													<button id="button_update_colaborator" type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Actualizar Colaborador</button>
-												</div>
-											</div>
-														
-										</form>
-										<button style="display: none;" id="default-success-update-col"  class="mt-sm mb-sm btn btn-success">Success</button>
-										<button style="display: none;" id="default-error-update-col" class="mt-sm mb-sm btn btn-danger">Error</button>
 									</div>
-								</section>
+								</footer>
+								<button style="display: none;" id="default-success-insert-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+								<button style="display: none;" id="default-error-insert-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+							</section>
+						
+					</div>
+					
+					<!-- FIN sección para llevar a cabo la inserción de un usuario -->
+
+
+					<!-- INICIO ACTUALIZACIÓN USUARIO -->
+
+					<!--  sección para llevar a cabo la actualización de un usuario -->
+
+					<div class="col-md-12" id="seccion_buscar_colaborador_act" style="display: none;">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
 									
-									<!-- FIN sección actualización de un usuario -->
+								</div>
+				
+								<h2 class="panel-title">Buscar Colaborador</h2>
+							</header>
+							<div class="panel-body">
+								<form class="form-horizontal form-bordered" method="get">
+																				
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nombre/N° Colaborador </label>
+										<div class="col-md-6">
+											<div class="input-group input-search">
+												<input type="text" class="form-control"  id="buscar_update_colaboradores" placeholder="Buscar..." oninput="buscarColaboradorActualizar();">
+												<span class="input-group-btn">
+													<button class="btn btn-default" id="button_buscar_update_colaboradores" type="button"><i class="fa fa-search"></i></button>
+												</span>
+											</div>
+										</div>
+									</div>
+																							
+								</form>
+							</div>
+						</section>
+							
+					</div>
+
+					<div class="col-md-12" id="seccion_lista_colaboradores_act" style="display: none;">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
 								
-								<!-- sección para llevar a cabo la eliminación de un usuario -->
-								
-								<section class="panel" id="seccion_buscar_colaborador_del" style="display: none;">
-									<header class="panel-heading">
-										<div class="panel-actions">
-											<a href="#" class="fa fa-caret-down"></a>
+								</div>
+				
+								<h2 class="panel-title">Lista Colaboradores</h2>
+							</header>
+							<div class="panel-body">
+								<div class="table-responsive">									
+									<table class="table table-hover mb-none text-center" id="table_update_colaboradores">
+										<thead>
+											<tr>
+												<th class="text-center">#</th>
+												<th class="text-center">Nombre Completo</th>
+												<th class="text-center">Identificación</th>
+												<th class="text-center">Teléfono</th>
+												<th class="text-center">Email</th>
+												<th class="text-center">Actualizar</th>
+											</tr>
+										</thead>										
+									</table>
+								</div>
+							</div>
+						</section>
+							
+					</div>
+				
+					<div class="col-md-12" id="panel_actualizar_colaborador" style="display: none;">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+									
+								</div>
+
+								<h2 class="panel-title">Actualizar Colaborador</h2>
+
+							</header>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">N° Colaborador</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-lock"></i></span>
+												</span>
+												<input readonly="readonly" type="text" id="number_update_colaborator" class="form-control">
+											</div>		
 											
 										</div>
-						
-										<h2 class="panel-title">Buscar Colaborador</h2>
-									</header>
-									<div class="panel-body">
-										<form class="form-horizontal form-bordered" method="get">
-																						
-											<div class="form-group">
-												<label class="col-md-3 control-label">Nombre/N° Colaborador </label>
-												<div class="col-md-6">
-													<div class="input-group input-search">
-														<input type="text" class="form-control"  id="buscar_delete_colaboradores" placeholder="Buscar...">
-														<span class="input-group-btn">
-															<button id="button_buscar_delete_colaboradores" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-														</span>
-													</div>
-												</div>
-											</div>
-																									
-										</form>
 									</div>
-								</section></br>
-
-								<div class="row"  >
-									<div class="col-md-12">
-										<section class="panel" id="seccion_lista_colaboradores_del" style="display: none;">
-											<header class="panel-heading">
-												<div class="panel-actions">
-													<a href="#" class="fa fa-caret-down"></a>
-												
-												</div>
-								
-												<h2 class="panel-title">Lista Colaboradores</h2>
-											</header>
-											<div class="panel-body">
-												<div class="table-responsive">
-													<table id="table_delete_colaboradores" class="table table-hover mb-none">
-														<thead>
-															<tr>
-																<th>#</th>
-																<th>Nombre Completo</th>
-																<th>Identificación</th>
-																<th>Teléfono</th>
-																<th>Email</th>
-																<th>Eliminar</th>
-															</tr>
-														</thead>
-														
-													</table>
-												</div>
-											</div>
-										</section>
-										<button style="display: none;" id="default-success-delete-col"  class="mt-sm mb-sm btn btn-success">Success</button>
-										<button style="display: none;" id="default-error-delete-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Nombre Completo</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-user"></i></span>
+												</span>
+												<input type="text" id="name_update_colaborator" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Identificación</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-key"></i></span>
+												</span>
+												<input type="text" id="ide_update_colaborator" class="form-control">
+											</div>		
+											
+										</div>
 									</div>
 								</div>
-			
-			 					<!-- FIN sección elimación de un usuario -->
-			
+							</br>
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Teléfono</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-chevron-right"></i></span>
+												</span>
+												<input type="text" id="tel_update_colaborator" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Correo Electrónico</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-envelope"></i></span>
+												</span>
+												<input type="text" id="email_update_colaborator" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Otro</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-chevron-right"></i></span>
+												</span>
+												<input type="textarea" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+								</div>
+							</div>
+							<footer class="panel-footer">
+								<div class="form-group">
+										
+									<div class="col-md-2">
+										<button onclick="seccion_actualizar_colaborador(2);buscarColaboradorActualizar();" type="button" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-chevron-left"></i> Atrás</button>
+									</div>
+									<div class="col-md-7">
+										<button id="button_update_colaborator" type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Actualizar Colaborador</button>
+									</div>
+								</div>
+							</footer>
+							<button style="display: none;" id="default-success-update-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+							<button style="display: none;" id="default-error-update-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+						</section>
+					
+				   </div>
+				   					
+					<!-- FIN ACTUALIZACIÓN USUARIO -->
+
+					<!-- INICIO ELIMINACIÓN USUARIO -->
+
+					<!--  sección para llevar a cabo la eliminación de un usuario -->
+
+					<div class="col-md-12" id="seccion_buscar_colaborador_del" style="display: none;">
+						<section class="panel" >
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+									
+								</div>
+				
+								<h2 class="panel-title">Buscar Colaborador</h2>
+							</header>
+							<div class="panel-body">
+								<form class="form-horizontal form-bordered" method="get">
+																				
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nombre/N° Colaborador </label>
+										<div class="col-md-6">
+											<div class="input-group input-search">
+												<input type="text" class="form-control"  id="buscar_delete_colaboradores" placeholder="Buscar..." oninput="buscarColaboradorEliminar();">
+												<span class="input-group-btn">
+													<button id="button_buscar_delete_colaboradores" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+												</span>
+											</div>
+										</div>
+									</div>
+																							
+								</form>
+							</div>
+						</section>
 							
-		  </div>
+					</div>
+
+					<div class="col-md-12" id="seccion_lista_colaboradores_del" style="display: none;">
+						<section class="panel" >
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+								
+								</div>
+				
+								<h2 class="panel-title">Lista Colaboradores</h2>
+							</header>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table id="table_delete_colaboradores" class="table table-hover mb-none text-center">
+										<thead>
+											<tr>
+												<th class="text-center">#</th>
+												<th class="text-center">Nombre Completo</th>
+												<th class="text-center">Identificación</th>
+												<th class="text-center">Teléfono</th>
+												<th class="text-center">Email</th>
+												<th class="text-center">Eliminar</th>
+											</tr>
+										</thead>
+										
+									</table>
+								</div>
+							</div>
+						</section>
+						<button style="display: none;" id="default-success-delete-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+						<button style="display: none;" id="default-error-delete-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+							
+					</div>
+
+					<!-- FIN ELIMINACIÓN USUARIO -->
+
+					<!-- INICIO REGISTRO CAJUELAS -->
+
+					<!--  sección para llevar a cabo el registro y control de cajuelas -->
+					
+					<!--  panel para encontrar y seleccionar un colaborador -->
+
+					<div class="col-md-12" id="seccion_registro_cajuelas">
+											
+							<section class="panel">
+								<header class="panel-heading">
+									<div class="panel-actions">
+										<a href="#" class="fa fa-caret-down"></a>
+									</div>
+					
+									<h2 class="panel-title">Registro y Control de Cajuelas</h2>
+								</header>
+								<div class="panel-body">																	
+				
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label class="control-label">Nombre/N° Colaborador </label>
+												<div class="input-group input-search">
+													<input type="text" class="form-control"  id="buscar_produccion_insert_colaboradores" placeholder="Buscar..." oninput="obtenerCajuelasRegistradas();">
+													<span class="input-group-btn">
+														<button id="button_buscar_produccion_insert_colaboradores" oninput="obtenerCajuelasRegistradas();" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+													</span>
+												</div>
+											</div>
+										</div>
+
+									    </br></br></br>
+																		
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="control-label">Seleccionar Fecha</label>
+													<select id="select_dias_produccion"  class="form-control mb-md"  onchange="obtenerCajuelasRegistradas();">
+																																									
+													</select>
+											</div>
+										</div>
+
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="control-label">Seleccionar Finca</label>
+													<select id="select_fincas_produccion"  class="form-control mb-md" onchange="obtenerCajuelasRegistradas();">
+																																					
+													</select>					
+											</div>
+										</div>												
+										
+								</div>															
+
+							</section>						
+					</div>
+
+					<div class="col-md-12" id="seccion_lista_cajuelas_registro">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+								</div>
+						
+								<h2 class="panel-title">Cajuelas Diarias</h2>
+							</header>
+							<div class="panel-body">								
+								<div id="table_control_produccion" class="table-editable">									
+									<table  id="table_control_produccion_editable" class="table table-bordered table-responsive-md table-striped text-center">
+									  <thead>
+										<tr>
+										  <th class="text-center">N°</th>
+										  <th class="text-center">Colaborador</th>
+										  <th class="text-center">Fecha</th>
+										  <th class="text-center">Cajuelas</th>
+										  <th class="text-center">Cuartillos</th>
+										  <th class="text-center">Acción</th>
+										</tr>
+									  </thead>									  
+									</table>
+								  </div>
+							</div>
+						</section>
+
+						<!-- BOTONES ESCONDIDOS PARA NOTIFICAR EL ESTADO DE LA ACCIÓN DEL USUARIO -->
+						<button style="display: none;" id="default-success-insert-produccion-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+						<button style="display: none;" id="default-error-insert-produccion-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+						<button style="display: none;" id="default-success-update-produccion-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+						<button style="display: none;" id="default-error-update-produccion-col" class="mt-sm mb-sm btn btn-danger">Error</button>	
+					
+					</div>
+
+					<!-- FIN REGISTRO CAJUELAS -->
+
+					<!--  sección para llevar a cabo el registro y control de fincas -->
+
+					<!-- INICIO REGISTRO FINCAS -->
+
+					<div class="col-md-12" id="seccion_crear_finca" style="display: none;">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+									
+								</div>
+
+								<h2 class="panel-title">Registrar Finca</h2>
+
+							</header>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">N° Finca</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-lock"></i></span>
+												</span>
+												<input readonly="readonly" type="text" id="numero_insert_finca" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Propietario</label>
+												<select id="select_propietarios_finca" data-plugin-selectTwo class="form-control populate">
+																																								
+												</select>
+											
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Nombre</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-columns"></i></span>
+												</span>
+												<input type="text" id="nombre_insert_finca" class="form-control">
+											</div>		
+											
+										</div>
+										
+									</div>
+									
+								</div>
+							</br>
+								<div class="row">
+									
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label class="control-label">Dirección</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-map-marker"></i></span>
+												</span>
+												<input type="text" id="direccion_insert_finca" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<footer class="panel-footer">
+								<div class="form-group">
+									<label class="col-md-3 control-label"></label>
+									<div class="col-md-5">
+										<button type="button" id="button_insert_finca" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Registrar</button>
+										
+									</div>
+								</div>
+							</footer>
+							<button style="display: none;" id="default-success-insert-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+							<button style="display: none;" id="default-error-insert-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+						</section>
+					
+				    </div>
+
+					<!-- FIN REGISTRO FINCAS -->
+
+					<!-- INICIO ACTUALIZACIÓN FINCAS -->
+
+					<div class="col-md-12" id="seccion_buscar_finca_act" style="display: none;">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+									
+								</div>
+				
+								<h2 class="panel-title">Buscar Finca</h2>
+							</header>
+							<div class="panel-body">
+								<form class="form-horizontal form-bordered" method="get">
+																				
+									<div class="form-group">
+										<label class="col-md-3 control-label">Nombre/N° Finca</label>
+										<div class="col-md-6">
+											<div class="input-group input-search">
+												<input type="text" class="form-control"  id="buscar_update_fincas" placeholder="Buscar...">
+												<span class="input-group-btn">
+													<button class="btn btn-default" id="button_buscar_update_fincas" type="button"><i class="fa fa-search"></i></button>
+												</span>
+											</div>
+										</div>
+									</div>
+																							
+								</form>
+							</div>
+						</section>
+							
+					</div>
+
+					<div class="col-md-12" id="seccion_lista_fincas_act" style="display: none;">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+								
+								</div>
+				
+								<h2 class="panel-title">Lista Fincas</h2>
+							</header>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table id="table_update_fincas" class="table table-hover mb-none text-center">
+										<thead>
+											<tr>
+												<th class="text-center">#</th>
+												<th class="text-center">Nombre</th>
+												<th class="text-center">Dirección</th>
+												<th class="text-center">Propietario(a)</th>
+												<th class="text-center">Actualizar</th>
+											</tr>
+										</thead>
+										
+									</table>
+								</div>
+							</div>
+						</section>
+							
+					</div>
+
+					<div class="col-md-12" id="panel_actualizar_finca" style="display: none;">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+									
+								</div>
+
+								<h2 class="panel-title">Actualizar Finca</h2>
+
+							</header>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">N° Finca</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-lock"></i></span>
+												</span>
+												<input readonly="readonly" type="text" id="number_update_finca" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Propietario</label>
+												<select id="select_update_propietarios_finca" data-plugin-selectTwo class="form-control populate">
+																																								
+												</select>
+											
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label class="control-label">Nombre Completo</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-columns"></i></span>
+												</span>
+												<input type="text" id="name_update_finca" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									
+								</div>
+							</br>
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label class="control-label">Dirección</label>
+											
+											<div class="input-group input-group-icon">
+												<span class="input-group-addon">
+													<span class="icon"><i class="fa fa-map-marker"></i></span>
+												</span>
+												<input type="text" id="direccion_update_finca" class="form-control">
+											</div>		
+											
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<footer class="panel-footer">
+								<div class="form-group">
+										
+									<div class="col-md-2">
+										<button onclick="seccion_actualizacion_finca(2);buscarFincaActualizar();" type="button" class="mb-xs mt-xs mr-xs btn btn-default"><i class="fa fa-chevron-left"></i> Atrás</button>
+									</div>
+									<div class="col-md-7">
+										<button id="button_update_finca" type="button" class="mb-xs mt-xs mr-xs btn btn-primary btn-block">Actualizar Finca</button>
+									</div>
+								</div>
+							</footer>
+							<button style="display: none;" id="default-success-update-col"  class="mt-sm mb-sm btn btn-success">Success</button>
+							<button style="display: none;" id="default-error-update-col" class="mt-sm mb-sm btn btn-danger">Error</button>
+						</section>
+					
+				   </div>
+
+					<!-- FIN ACTUALIZACIÓN FINCAS -->
+
+					<!-- end: page -->
+				</section>
+			</div>
 
 			<aside id="sidebar-right" class="sidebar-right">
 				<div class="nano">
@@ -821,53 +1293,81 @@
 					</div>
 				</div>
 			</aside>
+
+			<!-- Vendor -->
+			<script src="assets/vendor/jquery/jquery.js"></script>
+			<script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+			<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
+			<script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
+			<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+			<script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
+			<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+			
+			<!-- Specific Page Vendor -->
+			<script src="assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+			<script src="assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+			<script src="assets/vendor/select2/select2.js"></script>
+			<script src="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+			<script src="assets/vendor/jquery-maskedinput/jquery.maskedinput.js"></script>
+			<script src="assets/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+			<script src="assets/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+			<script src="assets/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+			<script src="assets/vendor/fuelux/js/spinner.js"></script>
+			<script src="assets/vendor/dropzone/dropzone.js"></script>
+			<script src="assets/vendor/bootstrap-markdown/js/markdown.js"></script>
+			<script src="assets/vendor/bootstrap-markdown/js/to-markdown.js"></script>
+			<script src="assets/vendor/bootstrap-markdown/js/bootstrap-markdown.js"></script>
+			<script src="assets/vendor/codemirror/lib/codemirror.js"></script>
+			<script src="assets/vendor/codemirror/addon/selection/active-line.js"></script>
+			<script src="assets/vendor/codemirror/addon/edit/matchbrackets.js"></script>
+			<script src="assets/vendor/codemirror/mode/javascript/javascript.js"></script>
+			<script src="assets/vendor/codemirror/mode/xml/xml.js"></script>
+			<script src="assets/vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+			<script src="assets/vendor/codemirror/mode/css/css.js"></script>
+			<script src="assets/vendor/summernote/summernote.js"></script>
+			<script src="assets/vendor/bootstrap-maxlength/bootstrap-maxlength.js"></script>
+			<script src="assets/vendor/ios7-switch/ios7-switch.js"></script>
+			<script src="assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+		    <script src="assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+		
+			
+			<!-- Theme Base, Components and Settings -->
+			<script src="assets/javascripts/theme.js"></script>
+			
+			<!-- Theme Custom -->
+			<script src="assets/javascripts/theme.custom.js"></script>
+			
+			<!-- Theme Initialization Files -->
+			<script src="assets/javascripts/theme.init.js"></script>
+			<script src="assets/vendor/pnotify/pnotify.custom.js"></script>
+			<script src="assets/javascripts/ui-elements/examples.notifications.js"></script>
+			<script src="assets/javascripts/forms/examples.advanced.form.js"></script>
+			<script src="assets/javascripts/tables/examples.datatables.editable.js"></script>
+
+			
+			<!-- Control de Mostrar y Esconder Secciones -->
+			<script src="assets/javascripts/visual_control.js"></script>
+			
+			<!-- Código de Insertar, Actualizar, Eliminar colaboradores -->
+		    <script src="assets/javascripts/forms/colaborador.js"></script>
+
+			<!-- Código de Control de producción -->
+			<script src="assets/javascripts/forms/produccion.js"></script>
+
+			<!-- Código de Control de fincas -->
+			<script src="assets/javascripts/forms/fincas.js"></script>
+			
+			<!-- Obtenemos los datos del usuario que realizó el inicio de sesión -->
+			<script>
+				var listsCredenciales = localStorage.getItem('listsCredenciales');
+				var valores = JSON.parse(listsCredenciales);
+				
+				document.getElementById("span_nombre_usuario_mostrar").innerHTML = valores.name;
+			    document.getElementById("span_tipo_usuario_mostrar").innerHTML = valores.tipo;
+			</script>
+
 		</section>
 
-		<!-- Vendor -->
-		<script src="assets/vendor/jquery/jquery.js"></script>
-		<script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-		<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
-		<script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
-		<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-		<script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
-		<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
-		
-		<!-- Specific Page Vendor -->
-		<script src="assets/vendor/jquery-autosize/jquery.autosize.js"></script>
-		<script src="assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
-		<script src="assets/vendor/select2/select2.js"></script>
-		<script src="assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
-		<script src="assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
-
-		<!-- Theme Base, Components and Settings -->
-		<script src="assets/javascripts/theme.js"></script>
-
-		<script src="assets/vendor/pnotify/pnotify.custom.js"></script>
-		<script src="assets/javascripts/ui-elements/examples.notifications.js"></script>
-		
-		<!-- Theme Custom -->
-		<script src="assets/javascripts/theme.custom.js"></script>
-		
-		<!-- Theme Initialization Files -->
-		<script src="assets/javascripts/theme.init.js"></script>
-
-		<!-- Control de Mostrar y Esconder Secciones -->
-		<script src="assets/javascripts/visual_control.js"></script>
-
-		<script src="assets/javascripts/tables/examples.datatables.editable.js"></script>
-
-
-
-		<!-- Código que se encarga del login y al mismo tiempo asigna el nombre del usuario que ingresó -->
-		<script src="assets/javascripts/user_access/signin.js"></script>
-
-		<script>
-			var listvalues = localStorage.getItem('listsCredenciales');
-			//pase the value 
-			var finalvalue = JSON.parse(listvalues);
-			// it look like this { "1": "value1", "2": "value2", "3": "value3" };
-			document.getElementById("span_nombre_usuario_mostrar").innerHTML = finalvalue.name;
-		</script>
-
+	
 	</body>
 </html>

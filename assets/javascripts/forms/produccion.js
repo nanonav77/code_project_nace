@@ -14,13 +14,13 @@ function listarDiasSemana(){
 
     // Listamos los nombres de los días para mostrarlos en el selector
     var weekday = new Array(7);
-        weekday[0] = "(Domingo)";
-        weekday[1] = "(Lunes)";
-        weekday[2] = "(Martes)";
-        weekday[3] = "(Miércoles)";
-        weekday[4] = "(Jueves)";
-        weekday[5] = "(Viernes)";
-        weekday[6] = "(Sábado)";
+        weekday[0] = "(Lunes)";
+        weekday[1] = "(Martes)";
+        weekday[2] = "(Miércoles)";
+        weekday[3] = "(Jueves)";
+        weekday[4] = "(Viernes)";
+        weekday[5] = "(Sábado)";
+        weekday[6] = "(Domingo)";
 
     for (let i = 0; i <= 6; i++) {
         
@@ -92,16 +92,16 @@ function obtenerCajuelasRegistradas(){
     
     var fecha_seleccionada = document.getElementById("select_dias_produccion").value;
     var ide_finca = document.getElementById("select_fincas_produccion").value;
-
+    var dato_colaborador_ingresado = document.getElementById("buscar_produccion_insert_colaboradores").value;
             
-    $("#table_control_produccion").find("tr:gt(0)   ").remove(); // Limpiamos la tabla para obtener los datos según los filtros  
+    $("#table_control_produccion").find("tr:gt(0)").remove(); // Limpiamos la tabla para obtener los datos según los filtros  
            
     const $tableID = $('#table_control_produccion');
     
     const xhttp = new XMLHttpRequest();
 
     xhttp.open('GET','assets/php_db/db_produccion/db_get_produccion_semanal_col.php?fecha_ingresada='+fecha_seleccionada+
-    '&ide_finca_ingresado='+ide_finca,true);
+    '&ide_finca_ingresado='+ide_finca+'&colaborador_ingresado='+dato_colaborador_ingresado,true);
 
     xhttp.send();
     
@@ -119,7 +119,7 @@ function obtenerCajuelasRegistradas(){
                  
                         
                     if (item.numero_finca > 0 ){
-                        tipo_accion = '<button onclick="actualizarCajuelasColaborador('+item.id_registro+')" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Actualizar</button>';
+                        tipo_accion = '<button onclick="actualizarCajuelasColaborador('+item.id_registro+')" type="button" class="btn btn-primary btn-rounded btn-sm my-0 waves-effect waves-light">Guardar</button>';
                         cajuelas_iniciales = item.cajuelas;
                         cuartillos_iniciales = item.cuartillos;
                     }

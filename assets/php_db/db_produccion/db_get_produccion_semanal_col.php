@@ -7,6 +7,7 @@ include '../db_conexion/db_conexion.php';
    
 $fecha_ingresada = $_GET['fecha_ingresada'];
 $ide_finca_ingresado = $_GET['ide_finca_ingresado'];
+$colaborador_ingresado = $_GET['colaborador_ingresado'];
 
 $return_arr = array();
 
@@ -45,6 +46,7 @@ join nace_fincas as c
 on b.ide_finca = c.numero and c.numero = '$ide_finca_ingresado')
 
 ) as tt
+where tt.numero_colaborador = '$colaborador_ingresado' or tt.nombre_colaborador like '%$colaborador_ingresado%'
 order by tt.numero_colaborador asc";
 
 $resultado = mysqli_query( $conexion, $consulta ) or die ( "Algo ha ido mal en la consulta a la base de datos");

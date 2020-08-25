@@ -24,6 +24,8 @@
 		});
 	});
 
+    /// MENSAJE INSERCIÓN COLABORADOR
+	
 	$('#default-success-insert-col').click(function() {
 		new PNotify({
 			title: 'Notificación',
@@ -31,6 +33,18 @@
 			type: 'success'
 		});
 	});
+
+	$('#default-error-insert-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'El colaborador ya se encuentra registrado!',
+			type: 'error'
+		});
+	});
+
+	///////////////////////////////////////////////////////////
+
+	/// MENSAJE ACTUALIZACIÓN COLABORADOR
 
 	$('#default-success-update-col').click(function() {
 		new PNotify({
@@ -48,7 +62,9 @@
 		});
 	});
 
-	/// MENSAJE INSERCIÓN PRODUCCION COLABORADOR
+	///////////////////////////////////////////////////////////
+
+	/// MENSAJE INSERCIÓN PRODUCCION DIARIA COLABORADOR
 
 	$('#default-success-insert-produccion-col').click(function() {
 		new PNotify({
@@ -68,7 +84,7 @@
 
 	///////////////////////////////////////////////////////////
 
-	/// MENSAJE ACTUALIZACION PRODUCCION COLABORADOR
+	/// MENSAJE ACTUALIZACION PRODUCCION DIARIA COLABORADOR
 
 	$('#default-success-update-produccion-col').click(function() {
 		new PNotify({
@@ -95,14 +111,7 @@
 			type: 'info'
 		});
 	});
-
-	$('#default-error-insert-col').click(function() {
-		new PNotify({
-			title: 'Notificación',
-			text: 'El colaborador ya se encuentra registrado!',
-			type: 'error'
-		});
-	});
+	
 
 	$('#default-error-delete-col').click(function() {
 		new PNotify({

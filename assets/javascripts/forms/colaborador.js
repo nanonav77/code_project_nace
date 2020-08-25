@@ -87,14 +87,8 @@ document.querySelector('#button_buscar_update_colaboradores').addEventListener('
 
 function buscarColaboradorActualizar(){
 
-    /// LIMPIAMOS LA TABLA ANTES DE REALIZAR UNA NUEVA CONSULTA
-    var myTable = document.getElementById("table_update_colaboradores");
-    var rowCount = myTable.rows.length;
-    for (var x=rowCount-1; x>0; x--) {
-        myTable.deleteRow(x);
-    }
-    ////////////////////////////////////////////////////////////
-
+    $("#table_update_colaboradores").find("tr:gt(0)").remove(); // Limpiamos la tabla para obtener los datos según los filtros  
+     
     var valor = document.getElementById("buscar_update_colaboradores").value;
     
     const xhttp = new XMLHttpRequest();
@@ -225,14 +219,8 @@ document.querySelector('#button_buscar_delete_colaboradores').addEventListener('
 
 function buscarColaboradorEliminar(){
 
-    /// LIMPIAMOS LA TABLA ANTES DE REALIZAR UNA NUEVA CONSULTA
-    var myTable = document.getElementById("table_delete_colaboradores");
-    var rowCount = myTable.rows.length;
-    for (var x=rowCount-1; x>0; x--) {
-        myTable.deleteRow(x);
-    }
-    ////////////////////////////////////////////////////////////
-
+    $("#table_delete_colaboradores").find("tr:gt(0)").remove(); // Limpiamos la tabla para obtener los datos según los filtros  
+     
     var valor = document.getElementById("buscar_delete_colaboradores").value;
     
     const xhttp = new XMLHttpRequest();
