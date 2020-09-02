@@ -25,6 +25,7 @@
           $row_array['identificacion'] = $row['identificacion'];
           $row_array['telefono'] = $row['telefono'];
           $row_array['email'] = $row['email'];
+          $row_array['estado'] = $row['estado'];
           array_push($return_arr,$row_array);
        }  
    }

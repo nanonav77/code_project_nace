@@ -248,15 +248,23 @@ function buscarColaboradorEliminar(){
                         var cell4 = row.insertCell(3);
                         var cell5 = row.insertCell(4);
                         var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
                       
                         cell1.innerHTML = item.numero;      
                         cell2.innerHTML = item.nombre;
                         cell3.innerHTML = item.identificacion;
                         cell4.innerHTML = item.telefono;
                         cell5.innerHTML = item.email;
+                        cell6.innerHTML = item.estado;
 
-                        // La celda 6 se le asignan atributos para mostrar y ejecutar la función de eliminar colaborador que fue seleccionado
-                        cell6.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:eliminarColaboradorSeleccionado("+item.numero+");'><i class='fa fa-trash-o'></i></a></td>";
+                        // La celda 6 se le asignan atributos para mostrar y ejecutar la función de activar/inactivar colaborador que fue seleccionado
+                        
+                        if(item.estado=='Activo'){
+                            cell7.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:desactivarColaboradorSeleccionado("+item.numero+");'><i class='fa fa-times'></i></a></td>";
+                        }
+                        else{
+                            cell7.innerHTML = "<td class='actions-hover actions-fade'><a href='javascript:activarColaboradorSeleccionado("+item.numero+");'><i class='fa fa-check'></i></a></td>";
+                        }
                 
                     }   
                   
@@ -267,15 +275,50 @@ function buscarColaboradorEliminar(){
     }
 }
 
-/// *** 2.3 FUNCIÓN PARA LLEVAR A CABO LA ELIMINACIÓN DEL COLABORADOR **
+/// *** 2.3 FUNCIÓN PARA LLEVAR A CABO LA INACTIVACIÓN DEL COLABORADOR **
 
 
-function eliminarColaboradorSeleccionado(numero){
+function desactivarColaboradorSeleccionado(numero){
 
     
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_colaboradores/db_delete_colaborador.php?numero_ingresado='+numero,true);
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_inactive_colaborador.php?numero_ingresado='+numero,true);
+
+    xhttp.send();
+
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+ 
+                var validacion = this.responseText; // variable trae el valor de php donde 0 error y 1 que se realizó la eliminación correctamente
+                
+                if (validacion == 0){
+                   
+                    document.getElementById('default-error-delete-col').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-delete-col').click();
+                    buscarColaboradorEliminar();
+
+                }
+                                             
+            }            
+    }
+}
+
+
+/// *** 2.4 FUNCIÓN PARA LLEVAR A CABO LA ACTIVACIÓN DEL COLABORADOR **
+
+function activarColaboradorSeleccionado(numero){
+
+    
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_colaboradores/db_active_colaborador.php?numero_ingresado='+numero,true);
 
     xhttp.send();
 

@@ -1,6 +1,6 @@
 <?php
  
-    // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA ELIMINAR UN DETERMINADO COLABORADOR
+    // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA DESACTIVAR UN DETERMINADO COLABORADOR
     
     include '../db_conexion/db_conexion.php';
 
@@ -11,7 +11,8 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "DELETE FROM nace_colaboradores where numero='$numero_ingresado'";
+    $sql = "UPDATE nace_colaboradores set estado='Inactivo'
+    where numero='$numero_ingresado'";
 
     if ($conn->query($sql) === TRUE) {
        
@@ -22,5 +23,6 @@
        
     }
     $conn->close();
+
 
 ?>

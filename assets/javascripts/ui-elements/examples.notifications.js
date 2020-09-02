@@ -54,11 +54,31 @@
 		});
 	});
 
+	$('#default-error-update-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'No se pudo actualizar los datos del colaborador!',
+			type: 'error'
+		});
+	});
+
+	///////////////////////////////////////////////////////////
+	
+	/// MENSAJE DE CAMBIO DE ESTADO DEL COLABORADOR
+
 	$('#default-success-delete-col').click(function() {
 		new PNotify({
 			title: 'Notificación',
-			text: 'El colaborador ha sido eliminado con éxito!',
+			text: 'Se ha camiado el estado del colaborador con éxito!',
 			type: 'success'
+		});
+	});
+	
+	$('#default-error-delete-col').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'No se pudo cambiar el estado del colaborador!',
+			type: 'error'
 		});
 	});
 
@@ -93,7 +113,7 @@
 			type: 'success'
 		});
 	});
-
+	
 	$('#default-error-update-produccion-col').click(function() {
 		new PNotify({
 			title: 'Notificación',
@@ -103,31 +123,6 @@
 	});
 
 	///////////////////////////////////////////////////////////
-
-	$('#default-info').click(function() {
-		new PNotify({
-			title: 'Regular Notice',
-			text: 'Check me out! I\'m a notice.',
-			type: 'info'
-		});
-	});
-	
-
-	$('#default-error-delete-col').click(function() {
-		new PNotify({
-			title: 'Notificación',
-			text: 'No se pudo eliminar el colaborador!',
-			type: 'error'
-		});
-	});
-
-	$('#default-error-update-col').click(function() {
-		new PNotify({
-			title: 'Notificación',
-			text: 'No se pudo actualizar los datos del colaborador!',
-			type: 'error'
-		});
-	});
 
 	$('#default-error-login-user').click(function() {
 		new PNotify({
@@ -146,6 +141,14 @@
 		});
 	});
 
+	$('#default-info').click(function() {
+		new PNotify({
+			title: 'Regular Notice',
+			text: 'Check me out! I\'m a notice.',
+			type: 'info'
+		});
+	});
+	
 	/*
 	Shadowed Notifications
 	*/
