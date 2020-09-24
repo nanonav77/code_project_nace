@@ -7,7 +7,7 @@
 function listarDiasSemana(){
     
     
-    document.getElementById('select_dias_produccion').innerText = null;
+    /*document.getElementById('select_dias_produccion').innerText = null;
 
     var curr = new Date(); /// Obtenemos la semana actual
     var curr2 = new Date(); /// Utilizamos esta variable como apoyo para hacer la comparacion del día actual y así ponerlo como predeterminado en el selector
@@ -40,21 +40,21 @@ function listarDiasSemana(){
             select_dias_produccion.selectedIndex = i-1;
         }
        
-    }
+    }*/
 
 }
 
 /// *** 1.2 OBTENER LA LISTA DE LAS FINCAS REGISTRADAS **
 
-function buscarFincaRegistroProduccion(){
+function buscarFincaRegistroProduccion(select_respectivo){
 
-    document.getElementById('select_fincas_produccion').innerText = null;
+    document.getElementById(select_respectivo).innerText = null;
 
-    var select_colaboradores_produccion = document.getElementById("select_fincas_produccion");
+    var select_fincas = document.getElementById(select_respectivo);
 
     var elemento = document.createElement("option");
     elemento.text = "Seleccionar..";
-    select_colaboradores_produccion.options.add(elemento);
+    select_fincas.options.add(elemento);
 
     const xhttp = new XMLHttpRequest();
 
@@ -76,7 +76,7 @@ function buscarFincaRegistroProduccion(){
                     elemento.value = item.numero;
 
                     // Añadimos cada elemento al selector
-                    select_colaboradores_produccion.options.add(elemento);
+                    select_fincas.options.add(elemento);
                     
                 }
                 

@@ -59,7 +59,7 @@
 		</style>
 
 	</head>
-	<body onload="listarDiasSemana();buscarFincaRegistroProduccion();">
+	<body onload="listarDiasSemana();buscarFincaRegistroProduccion('select_fincas_produccion');">
 		<section class="body">
 
 			<!-- start: header -->
@@ -328,26 +328,38 @@
 									
 									<li class="nav-parent">
 										<a>
-											<i class="fa fa-list-alt" aria-hidden="true"></i>
-											<span>Control Producción</span>
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+											<span>Registro Producción</span>
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="javascript:seccion_registro_control_cajuelas();listarDiasSemana();buscarFincaRegistroProduccion();">
+												<a href="javascript:seccion_registro_control_cajuelas();listarDiasSemana();buscarFincaRegistroProduccion('select_fincas_produccion');">
 												   Registro Cajuelas Colaborador
 												</a>
 											</li>
 											<li>
-												<a href="forms-advanced.html">
+												<a href="javascript:seccion_registro_control_cajuelas_fincas();buscarFincaRegistroProduccion('select_fincas_cajuelas_finca');">
 												   Registro Cajuelas Finca
 												</a>
-											</li>
+											</li>																						
+										</ul>
+									</li>
+									<li class="nav-parent">
+										<a>
+											<i class="fa fa-list-alt" aria-hidden="true"></i>
+											<span>Consulta Producción</span>
+										</a>
+										<ul class="nav nav-children">
 											<li>
-												<a href="forms-advanced.html">
+												<a href="">
 												   Consulta Cajuelas Colaborador
 												</a>
 											</li>
-											
+											<li>
+												<a href="">
+												   Consulta Cajuelas Finca
+												</a>
+											</li>									
 										</ul>
 									</li>
 									<li class="nav-parent">
@@ -908,7 +920,7 @@
 								</header>
 								<div class="panel-body">																	
 				
-										<div class="col-sm-12">
+										<div class="col-sm-4">
 											<div class="form-group">
 												<label class="control-label">Nombre/N° Colaborador </label>
 												<div class="input-group input-search">
@@ -919,19 +931,20 @@
 												</div>
 											</div>
 										</div>
-
-									    </br></br></br>
 																		
-										<div class="col-sm-6">
+										<div class="col-sm-4">
 											<div class="form-group">
 												<label class="control-label">Seleccionar Fecha</label>
-													<select id="select_dias_produccion"  class="form-control mb-md"  onchange="obtenerCajuelasRegistradas();">
-																																									
-													</select>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</span>
+													<input type="text" data-plugin-datepicker class="form-control">
+												</div>
 											</div>
 										</div>
 
-										<div class="col-sm-6">
+										<div class="col-sm-4">
 											<div class="form-group">
 												<label class="control-label">Seleccionar Finca</label>
 													<select id="select_fincas_produccion"  class="form-control mb-md" onchange="obtenerCajuelasRegistradas();">
@@ -981,6 +994,108 @@
 					</div>
 
 					<!-- FIN REGISTRO CAJUELAS -->
+
+					<!-- INICIO REGISTRO CAJUELAS FINCA -->
+
+					<!--  sección para llevar a cabo el registro y control de cajuelas de una finca-->
+					
+					<!--  panel para encontrar y seleccionar un colaborador -->
+
+					<div class="col-md-12" id="seccion_registro_cajuelas_finca" style="display: none;">
+											
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+								</div>
+				
+								<h2 class="panel-title">Control de Cajuelas por Finca</h2>
+							</header>
+							<div class="panel-body">													
+									
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label class="control-label">Seleccionar Fecha</label>
+										
+											<div class="input-group">
+												<span class="input-group-addon">
+													<i class="fa fa-calendar"></i>
+												</span>
+												<input type="text" data-plugin-datepicker class="form-control">
+											</div>
+													
+									</div>
+								</div>   
+
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label class="control-label">Seleccionar Finca</label>
+											<select id="select_fincas_cajuelas_finca"  class="form-control mb-md" onchange="obtenerCajuelasRegistradas();">
+																																				
+											</select>					
+									</div>
+								</div>	
+								
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Número Recibo</label>
+										<div class="input-group input-group-icon">
+											<span class="input-group-addon">
+												<span class="icon"><i class="fa fa-list-alt"></i></span>
+											</span>
+											<input type="text" id="number_recibo" class="form-control">
+										</div>				
+									</div>
+								</div>
+
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Cajuelas</label>
+										<div>
+											<div data-plugin-spinner data-plugin-options='{ "value":0, "min": 0, "max": 1000 }'>
+												<div class="input-group">
+													<input type="text" class="spinner-input form-control" maxlength="3">
+													<div class="spinner-buttons input-group-btn">
+														<button type="button" class="btn btn-default spinner-up">
+															<i class="fa fa-angle-up"></i>
+														</button>
+														<button type="button" class="btn btn-default spinner-down">
+															<i class="fa fa-angle-down"></i>
+														</button>
+													</div>
+												</div>
+											</div>											
+										</div>							
+									</div>
+								</div>
+
+								<div class="col-sm-4">
+									<div class="form-group">
+										<label class="control-label">Cuartillos</label>
+										<div>
+											<div data-plugin-spinner data-plugin-options='{ "value":0, "min": 0, "max": 3 }'>
+												<div class="input-group">
+													<input type="text" class="spinner-input form-control" maxlength="3" readonly>
+													<div class="spinner-buttons input-group-btn">
+														<button type="button" class="btn btn-default spinner-up">
+															<i class="fa fa-angle-up"></i>
+														</button>
+														<button type="button" class="btn btn-default spinner-down">
+															<i class="fa fa-angle-down"></i>
+														</button>
+													</div>
+												</div>
+											</div>											
+										</div>			
+									</div>
+								</div>
+									
+							</div>					
+								
+						</section>						
+				</div>				
+
+				<!-- FIN REGISTRO CAJUELAS POR FINCA -->
 
 					<!--  sección para llevar a cabo el registro y control de fincas -->
 
