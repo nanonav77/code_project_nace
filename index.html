@@ -59,7 +59,7 @@
 		</style>
 
 	</head>
-	<body onload="listarDiasSemana();buscarFincaRegistroProduccion('select_fincas_produccion');">
+	<body onload="listarDiasSemana('campo_fecha_produccion_colaboradores');buscarFincaRegistroProduccion('select_fincas_produccion');">
 		<section class="body">
 
 			<!-- start: header -->
@@ -258,8 +258,9 @@
 							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
 								<span id="span_nombre_usuario_mostrar" class="name"></span>
 								<span id="span_tipo_usuario_mostrar" class="role"></span>
-							</div>
-		
+								<span id="span_identificacion_no_mostrar" class="role" style="display: none;"></span>
+								
+							</div>		
 							<i class="fa custom-caret"></i>
 						</a>
 			
@@ -333,12 +334,12 @@
 										</a>
 										<ul class="nav nav-children">
 											<li>
-												<a href="javascript:seccion_registro_control_cajuelas();listarDiasSemana();buscarFincaRegistroProduccion('select_fincas_produccion');">
+												<a href="javascript:seccion_registro_control_cajuelas();listarDiasSemana('campo_fecha_produccion_colaboradores');buscarFincaRegistroProduccion('select_fincas_produccion');">
 												   Registro Cajuelas Colaborador
 												</a>
 											</li>
 											<li>
-												<a href="javascript:seccion_registro_control_cajuelas_fincas();buscarFincaRegistroProduccion('select_fincas_cajuelas_finca');">
+												<a href="javascript:seccion_registro_control_cajuelas_fincas();listarDiasSemana('campo_fecha_produccion_fincas');buscarFincaRegistroProduccion('select_fincas_cajuelas_finca');">
 												   Registro Cajuelas Finca
 												</a>
 											</li>																						
@@ -939,7 +940,7 @@
 													<span class="input-group-addon">
 														<i class="fa fa-calendar"></i>
 													</span>
-													<input type="text" data-plugin-datepicker class="form-control">
+													<input id="campo_fecha_produccion_colaboradores" type="text" data-plugin-datepicker class="form-control">
 												</div>
 											</div>
 										</div>
@@ -1021,7 +1022,7 @@
 												<span class="input-group-addon">
 													<i class="fa fa-calendar"></i>
 												</span>
-												<input type="text" data-plugin-datepicker class="form-control">
+												<input id="campo_fecha_produccion_fincas" type="text" data-plugin-datepicker class="form-control">
 											</div>
 													
 									</div>
@@ -1130,7 +1131,7 @@
 									<div class="col-sm-4">
 										<div class="form-group">
 											<label class="control-label">Propietario</label>
-												<select id="select_propietarios_finca" data-plugin-selectTwo class="form-control populate">
+												<select id="select_propietarios_finca" class="form-control populate">
 																																								
 												</select>
 											
@@ -1478,6 +1479,7 @@
 				var listsCredenciales = localStorage.getItem('listsCredenciales');
 				var valores = JSON.parse(listsCredenciales);
 				
+				document.getElementById("span_identificacion_no_mostrar").innerHTML = valores.identification;
 				document.getElementById("span_nombre_usuario_mostrar").innerHTML = valores.name;
 			    document.getElementById("span_tipo_usuario_mostrar").innerHTML = valores.tipo;
 			</script>

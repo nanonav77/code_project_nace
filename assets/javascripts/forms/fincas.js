@@ -35,7 +35,15 @@ function obtenerIdNuevaFinca(){
 
 function buscarPropietariosRegistroFincas(){
     
-    document.getElementById('select_propietarios_finca').innerText = null;
+    var select_propietarios = document.getElementById('select_propietarios_finca');
+    select_propietarios.innerText = null;
+    
+    var elemento = document.createElement("option");
+    elemento.text = "Seleccionar..";
+    select_propietarios.options.add(elemento);
+
+    // Obtenemos los datos del usuario que está en la sesión actual
+    var identificacion_user_actual = document.getElementById('span_identificacion_no_mostrar').innerText;
 
     const xhttp = new XMLHttpRequest();
 
@@ -49,9 +57,9 @@ function buscarPropietariosRegistroFincas(){
 
                 let datos = JSON.parse(this.responseText);
 
-                var select_colaboradores_produccion = document.getElementById("select_propietarios_finca");
-               
-         
+                var contador = 0;// este contador permite ubicar en el selector, el usuario activo como el propietario seleccionado por defecto en caso de que aplique
+                var select_propietarios_fincas = document.getElementById("select_propietarios_finca");
+                        
                 for(let item of datos){
 
                     // Creamos el elemento con los datos de cada uno de los colaboradores
@@ -60,7 +68,13 @@ function buscarPropietariosRegistroFincas(){
                     elemento.value = item.identificacion;
 
                     // Añadimos cada elemento al selector
-                    select_colaboradores_produccion.options.add(elemento);
+                    select_propietarios_fincas.options.add(elemento);
+
+                    if(identificacion_user_actual==item.identificacion){
+                        select_propietarios_fincas.selectedIndex = contador+1;
+                    }
+
+                    contador++;
                     
                 }
                 

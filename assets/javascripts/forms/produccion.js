@@ -4,44 +4,10 @@
 
 /// *** 1.1 OBTENER LA LISTA DE LOS DÍAS DE LA SEMANA**
 
-function listarDiasSemana(){
+function listarDiasSemana(idCampoFecha){
     
-    
-    /*document.getElementById('select_dias_produccion').innerText = null;
-
-    var curr = new Date(); /// Obtenemos la semana actual
-    var curr2 = new Date(); /// Utilizamos esta variable como apoyo para hacer la comparacion del día actual y así ponerlo como predeterminado en el selector
-
-    // Listamos los nombres de los días para mostrarlos en el selector
-    var weekday = new Array(7);
-        weekday[0] = "(Lunes)";
-        weekday[1] = "(Martes)";
-        weekday[2] = "(Miércoles)";
-        weekday[3] = "(Jueves)";
-        weekday[4] = "(Viernes)";
-        weekday[5] = "(Sábado)";
-        weekday[6] = "(Domingo)";
-
-    for (let i = 0; i <= 6; i++) {
-        
-        var first = curr.getDate() - curr.getDay() + i ;
-        var day = new Date(curr.setDate(first)).toISOString().slice(0, 10);
-        
-        // Creamos el elemento con los datos de cada uno de los colaboradores
-        var elemento = document.createElement("option");
-        elemento.text = day +"  "+ weekday[i];
-        elemento.value = day;
-        
-        //Añadimos cada elemento al selector
-        select_dias_produccion.options.add(elemento);
-
-        // Comparamos si el valor en lista es igual al día actual y así ponerlo predeterminado en el selector
-        if(curr2.toISOString().slice(0, 10)==day){
-            select_dias_produccion.selectedIndex = i-1;
-        }
-       
-    }*/
-
+    var currentDate = new Date();  
+    $("#"+idCampoFecha).datepicker("setDate",currentDate);
 }
 
 /// *** 1.2 OBTENER LA LISTA DE LAS FINCAS REGISTRADAS **

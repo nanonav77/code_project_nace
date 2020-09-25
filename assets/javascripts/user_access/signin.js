@@ -25,7 +25,7 @@ function autenticarUsuario(){
                 for(let item of datos){
                               
                     // Creamos un local storage para llevar los datos del usuario que ingresa a la pantalla principal
-                    var listCredenciales = { "name": item.nombre_usuario+" "+item.apellidos_usuario, "tipo": item.rol_usuario}
+                    var listCredenciales = {"identification": item.identificacion, "name": item.nombre_usuario+" "+item.apellidos_usuario, "tipo": item.rol_usuario}
                     localStorage.setItem('listsCredenciales', JSON.stringify(listCredenciales)); 
                                 
                     formLogin.submit();// enviamos el form
