@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-09-2020 a las 05:25:41
+-- Tiempo de generación: 06-10-2020 a las 20:55:18
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -57,7 +57,7 @@ INSERT INTO `nace_colaboradores` (`numero`, `nombre`, `identificacion`, `telefon
 (14, 'Marcial Santo', 0, 0, '', 'Activo'),
 (15, 'Camilo', 0, 0, '', 'Activo'),
 (16, 'Agustin', 0, 0, '', 'Activo'),
-(17, 'Hernesto', 0, 0, '', 'Activo'),
+(17, 'Hernesto', 0, 88559966, '', 'Activo'),
 (18, 'Carlos', 0, 0, '', 'Activo'),
 (19, 'Jenaro', 0, 0, '', 'Activo'),
 (20, 'Manuel (Gato)', 0, 0, '', 'Activo'),
@@ -159,7 +159,31 @@ INSERT INTO `nace_produccion` (`id_registro`, `ide_colaborador`, `ide_finca`, `f
 (9, 3, 1, '2020-08-24', 10, 1),
 (10, 64, 1, '2020-08-24', 10, 2),
 (11, 2, 1, '2020-08-24', 3, 2),
-(12, 5, 1, '2020-08-24', 5, 1);
+(12, 5, 1, '2020-08-24', 5, 1),
+(13, 1, 1, '2020-10-05', 12, 2),
+(14, 3, 1, '2020-10-05', 13, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `nace_produccion_fincas`
+--
+
+CREATE TABLE `nace_produccion_fincas` (
+  `id_registro` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `id_finca` int(11) NOT NULL,
+  `numero_recibo` int(11) NOT NULL,
+  `cajuelas` int(11) NOT NULL,
+  `cuartillos` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `nace_produccion_fincas`
+--
+
+INSERT INTO `nace_produccion_fincas` (`id_registro`, `fecha`, `id_finca`, `numero_recibo`, `cajuelas`, `cuartillos`) VALUES
+(1, '2020-10-06', 1, 4545, 120, 2);
 
 -- --------------------------------------------------------
 
@@ -210,6 +234,13 @@ ALTER TABLE `nace_produccion`
   ADD KEY `ide_finca` (`ide_finca`);
 
 --
+-- Indices de la tabla `nace_produccion_fincas`
+--
+ALTER TABLE `nace_produccion_fincas`
+  ADD PRIMARY KEY (`id_registro`),
+  ADD KEY `id_finca` (`id_finca`);
+
+--
 -- Indices de la tabla `nace_usuarios`
 --
 ALTER TABLE `nace_usuarios`
@@ -235,7 +266,13 @@ ALTER TABLE `nace_fincas`
 -- AUTO_INCREMENT de la tabla `nace_produccion`
 --
 ALTER TABLE `nace_produccion`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `nace_produccion_fincas`
+--
+ALTER TABLE `nace_produccion_fincas`
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
@@ -253,6 +290,12 @@ ALTER TABLE `nace_fincas`
 ALTER TABLE `nace_produccion`
   ADD CONSTRAINT `nace_produccion_ibfk_1` FOREIGN KEY (`ide_colaborador`) REFERENCES `nace_colaboradores` (`numero`),
   ADD CONSTRAINT `nace_produccion_ibfk_2` FOREIGN KEY (`ide_finca`) REFERENCES `nace_fincas` (`numero`);
+
+--
+-- Filtros para la tabla `nace_produccion_fincas`
+--
+ALTER TABLE `nace_produccion_fincas`
+  ADD CONSTRAINT `nace_produccion_fincas_ibfk_1` FOREIGN KEY (`id_finca`) REFERENCES `nace_fincas` (`numero`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -54,9 +54,11 @@ function buscarFincaRegistroProduccion(select_respectivo){
 /// *** 1.3 OBTENER LAS CAJUELAS DE LOS COLABORADORES ASOCIADAS A UNA DETERMINADA FINCA **
 
 function obtenerCajuelasRegistradas(){
-
     
-    var fecha_seleccionada = document.getElementById("select_dias_produccion").value;
+    var fecha_seleccionada = document.getElementById("campo_fecha_produccion_colaboradores").value;
+    let current_datetime = new Date(fecha_seleccionada);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+
     var ide_finca = document.getElementById("select_fincas_produccion").value;
     var dato_colaborador_ingresado = document.getElementById("buscar_produccion_insert_colaboradores").value;
             
@@ -66,7 +68,7 @@ function obtenerCajuelasRegistradas(){
     
     const xhttp = new XMLHttpRequest();
 
-    xhttp.open('GET','assets/php_db/db_produccion/db_get_produccion_semanal_col.php?fecha_ingresada='+fecha_seleccionada+
+    xhttp.open('GET','assets/php_db/db_produccion/db_get_produccion_semanal_col.php?fecha_ingresada='+formatted_date+
     '&ide_finca_ingresado='+ide_finca+'&colaborador_ingresado='+dato_colaborador_ingresado,true);
 
     xhttp.send();
@@ -127,7 +129,10 @@ function obtenerCajuelasRegistradas(){
 
 function insertarCajuelasColaborador(numero_colaborador){
 
-    var fecha_seleccionada = document.getElementById("select_dias_produccion").value;
+    var fecha_seleccionada = document.getElementById("campo_fecha_produccion_colaboradores").value;
+    let current_datetime = new Date(fecha_seleccionada);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+
     var ide_finca = document.getElementById("select_fincas_produccion").value;
     var cajuelas_digitadas;
     var cuartillos_digitados; 
@@ -149,7 +154,7 @@ function insertarCajuelasColaborador(numero_colaborador){
         }
     }
     /// Insertar el registro finalmente en la base de datos
-    insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccionada,ide_finca,cajuelas_digitadas,cuartillos_digitados);
+    insertarCajuelasColaboradorBaseDatos(numero_colaborador,formatted_date,ide_finca,cajuelas_digitadas,cuartillos_digitados);
 }
 
 /// *** 1.3.1.1 FUNCIÓN PARA INSERTAR INICIALMENTE LAS CAJUELAS DE UN COLABORADOR EN LA BASE DE DATOS**
@@ -190,7 +195,6 @@ function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccion
 
 /// *** 1.3.2 ACTUALIZAR LAS CAJUELAS DE UN COLABORADOR EN UNA FINCA QUE HAN SIDO REGISTRADAS POSTERIORMENTE **
 
-
 function actualizarCajuelasColaborador(ide_registro){
 
     var cajuelas = document.getElementById("cajuelas_ide"+ide_registro).innerText;
@@ -226,4 +230,102 @@ function actualizarCajuelasColaborador(ide_registro){
     }
 
     obtenerCajuelasRegistradas(); // Volvemos a llamar la función para actualizar la tabla con los datos
+}
+
+/// *** 1.4 REGISTRO DE CAJUELAS TOTALES POR FINCA SEGÚN EL DÍA DE PRODUCCIÓN DETERMINADO **
+
+/// *** 1.4.1 Verificar y obtener si ya hay un registro con los filtros seleccionados por el usuario **
+
+function obtenerProduccionFincaVerificacion(){
+    
+    var fecha_seleccionada = document.getElementById("campo_fecha_produccion_fincas").value;
+    let current_datetime = new Date(fecha_seleccionada);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+
+    var ide_finca = document.getElementById("select_fincas_cajuelas_finca").value;
+       
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_produccion/db_get_produccion_diaria_finca.php?fecha_ingresada='+formatted_date+
+    '&ide_finca_ingresado='+ide_finca,true);
+
+    xhttp.send();
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+
+                let datos = JSON.parse(this.responseText);
+           
+                for(let item of datos){
+                    alert(item.id_registro);      
+                    if (item.id_registro > 0 ){
+
+                        document.getElementById("number_recibo").value = item.numero_recibo;
+                        document.getElementById("cajuelas_produccion_finca").value = item.cajuelas;
+                        document.getElementById("cuartillos_produccion_finca").value = item.cuartillos;
+
+                        document.getElementById("button_actualizar_produccion_finca").style.display = "inline";
+                        document.getElementById("button_registrar_produccion_finca").style.display = "none";
+                    }
+
+                    else{
+                        
+                        document.getElementById("button_actualizar_produccion_finca").style.display = "none";
+                        document.getElementById("button_registrar_produccion_finca").style.display = "inline";
+
+                    }                                   
+                                   
+                }
+                
+            }
+                   
+    }
+   
+}
+
+/// *** 1.4.2  registrar por primera vez la producción de una determinada finca en un día en específico**
+
+document.querySelector('#button_registrar_produccion_finca').addEventListener('click', insertarCajuelasFincaBaseDatos); // BOTON EJECUTA LA FUNCIÓN
+
+function insertarCajuelasFincaBaseDatos(){
+
+    var numero_recibo = document.getElementById("number_recibo").value;
+    var ide_finca = document.getElementById("select_fincas_cajuelas_finca").value;
+
+    var fecha_seleccionada = document.getElementById("campo_fecha_produccion_fincas").value;
+    let current_datetime = new Date(fecha_seleccionada);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+       
+    var cajuelas_digitadas = document.getElementById("cajuelas_produccion_finca").value;
+    var cuartillos_digitados = document.getElementById("cuartillos_produccion_finca").value;
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_produccion/db_insert_produccion_finca_dia.php?numero_recibo='+numero_recibo
+    +'&ide_finca='+ide_finca+'&fecha='+formatted_date+'&cajuelas='+cajuelas_digitadas
+    +'&cuartillos='+cuartillos_digitados,true);
+
+    xhttp.send();
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 ya está creado y 1 que se puede crear como nuevo registro
+                
+                if (validacion_existencia == 0){
+                   
+                    document.getElementById('default-error-insert-produccion-col').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-insert-produccion-col').click();
+
+                }
+                
+            }            
+    }
+    obtenerProduccionFincaVerificacion(); //Realizamos la validación después de la inserción
 }
