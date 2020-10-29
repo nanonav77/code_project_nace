@@ -1012,9 +1012,21 @@
 				
 								<h2 class="panel-title">Control de Cajuelas por Finca</h2>
 							</header>
-							<div class="panel-body">													
-									
-								<div class="col-sm-6">
+							<div class="panel-body">		
+
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label class="control-label">Número Recibo</label>
+										<div class="input-group input-group-icon">
+											<span class="input-group-addon">
+												<span class="icon"><i class="fa fa-list-alt"></i></span>
+											</span>
+											<input type="text" id="number_recibo" class="form-control">
+										</div>				
+									</div>
+								</div>
+
+								<div class="col-sm-4">
 									<div class="form-group">
 										<label class="control-label">Seleccionar Fecha</label>
 										
@@ -1028,7 +1040,7 @@
 									</div>
 								</div>   
 
-								<div class="col-sm-6">
+								<div class="col-sm-5">
 									<div class="form-group">
 										<label class="control-label">Seleccionar Finca</label>
 											<select id="select_fincas_cajuelas_finca"  class="form-control mb-md" onchange="obtenerProduccionFincaVerificacion();">
@@ -1037,18 +1049,7 @@
 									</div>
 								</div>	
 								
-								<div class="col-sm-3">
-									<div class="form-group">
-										<label class="control-label">Número Recibo</label>
-										<div class="input-group input-group-icon">
-											<span class="input-group-addon">
-												<span class="icon"><i class="fa fa-list-alt"></i></span>
-											</span>
-											<input type="text" id="number_recibo" class="form-control">
-										</div>				
-									</div>
-								</div>
-
+																							
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label class="control-label">Cajuelas</label>
@@ -1069,7 +1070,7 @@
 										</div>							
 									</div>
 								</div>
-
+								
 								<div class="col-sm-3">
 									<div class="form-group">
 										<label class="control-label">Cuartillos</label>
@@ -1099,7 +1100,21 @@
 											<button type="button" id="button_actualizar_produccion_finca" class="mb-xs mt-xs mr-xs btn btn-primary btn-block" style="display: none;">Actualizar</button>
 										</div>
 									</div>
-							    </div>	
+								</div>
+
+								<div class="col-sm-3">
+									<div class="form-group">
+										<label class="control-label"></label>
+										<div>
+											<button type="button" id="button_borrar_produccion_finca" class="mb-xs mt-xs mr-xs btn btn-danger btn-block" disabled>Borrar</button>
+										</div>
+									</div>
+								</div>
+
+								<!-- BOTONES ESCONDIDOS PARA NOTIFICAR EL ESTADO DE LA ACCIÓN DEL USUARIO -->
+								<button style="display: none;" id="default-success-delete-pf"  class="mt-sm mb-sm btn btn-success">Success</button>
+								<button style="display: none;" id="default-error-delete-pf" class="mt-sm mb-sm btn btn-danger">Error</button>
+								
 							</div>					
 								
 						</section>						

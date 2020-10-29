@@ -69,7 +69,7 @@
 	$('#default-success-delete-col').click(function() {
 		new PNotify({
 			title: 'Notificación',
-			text: 'Se ha camiado el estado del colaborador con éxito!',
+			text: 'Se ha cambiado el estado del colaborador con éxito!',
 			type: 'success'
 		});
 	});
@@ -104,7 +104,7 @@
 
 	///////////////////////////////////////////////////////////
 
-	/// MENSAJE ACTUALIZACION PRODUCCION DIARIA COLABORADOR
+	/// MENSAJE ACTUALIZACION PRODUCCION DIARIA COLABORADOR Y FINCA
 
 	$('#default-success-update-produccion-col').click(function() {
 		new PNotify({
@@ -118,6 +118,26 @@
 		new PNotify({
 			title: 'Notificación',
 			text: 'La actualización ha fallado!',
+			type: 'error'
+		});
+	});
+
+	///////////////////////////////////////////////////////////
+
+	/// MENSAJE DE BORRAR DETERMINADA PRODUCCIÓN DIARIA DE UNA FINCA
+
+	$('#default-success-delete-pf').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'Se ha borrado con éxito el recibo!',
+			type: 'success'
+		});
+	});
+	
+	$('#default-error-delete-pf').click(function() {
+		new PNotify({
+			title: 'Notificación',
+			text: 'No se pudo llevar a cabo la eliminación del recibo!',
 			type: 'error'
 		});
 	});

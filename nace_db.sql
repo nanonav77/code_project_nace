@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-10-2020 a las 20:55:18
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.8
+-- Tiempo de generación: 29-10-2020 a las 05:43:14
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,7 @@ CREATE TABLE `nace_colaboradores` (
 --
 
 INSERT INTO `nace_colaboradores` (`numero`, `nombre`, `identificacion`, `telefono`, `email`, `estado`) VALUES
-(1, 'Victor', 0, 0, '', 'Activo'),
+(1, 'Victor', 0, 662, '', 'Activo'),
 (2, 'Sito', 0, 0, '', 'Activo'),
 (3, 'Gabino', 0, 0, '', 'Activo'),
 (4, 'Osvaldo', 0, 0, '', 'Activo'),
@@ -161,7 +161,9 @@ INSERT INTO `nace_produccion` (`id_registro`, `ide_colaborador`, `ide_finca`, `f
 (11, 2, 1, '2020-08-24', 3, 2),
 (12, 5, 1, '2020-08-24', 5, 1),
 (13, 1, 1, '2020-10-05', 12, 2),
-(14, 3, 1, '2020-10-05', 13, 2);
+(14, 3, 1, '2020-10-05', 13, 2),
+(15, 2, 1, '2020-10-28', 23, 2),
+(16, 2, 2, '2020-10-28', 25, 2);
 
 -- --------------------------------------------------------
 
@@ -266,13 +268,13 @@ ALTER TABLE `nace_fincas`
 -- AUTO_INCREMENT de la tabla `nace_produccion`
 --
 ALTER TABLE `nace_produccion`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `nace_produccion_fincas`
 --
 ALTER TABLE `nace_produccion_fincas`
-  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

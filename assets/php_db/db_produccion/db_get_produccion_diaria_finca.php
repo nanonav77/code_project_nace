@@ -37,6 +37,14 @@ if ($conexion)
 
 mysqli_close($conexion);
 
-echo json_encode($return_arr);
-
+// validar si hay datos o no con los filtros aplicados por el usuario
+if(empty($return_arr)){
+   $row_array['id_registro'] = 0;
+   array_push($return_arr,$row_array);
+   echo json_encode($return_arr);
+}
+else{
+   echo json_encode($return_arr);
+}
+   
 ?>

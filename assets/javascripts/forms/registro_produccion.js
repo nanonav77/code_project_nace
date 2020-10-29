@@ -258,30 +258,36 @@ function obtenerProduccionFincaVerificacion(){
                 let datos = JSON.parse(this.responseText);
            
                 for(let item of datos){
-                    alert(item.id_registro);      
-                    if (item.id_registro > 0 ){
+                 
+                    if (item.id_registro > 0){ // verificamos si ya habian datos almacenados con los filtros aplicados por el usuario
 
                         document.getElementById("number_recibo").value = item.numero_recibo;
                         document.getElementById("cajuelas_produccion_finca").value = item.cajuelas;
                         document.getElementById("cuartillos_produccion_finca").value = item.cuartillos;
-
+                
                         document.getElementById("button_actualizar_produccion_finca").style.display = "inline";
                         document.getElementById("button_registrar_produccion_finca").style.display = "none";
-                    }
 
+                        document.getElementById("button_borrar_produccion_finca").disabled = false;// Habilitamos el botón de borrar el recibo de producción por finca ya registrado
+                    }     
+                
                     else{
-                        
+                        document.getElementById("number_recibo").value = " ";
+                        document.getElementById("cajuelas_produccion_finca").value = " ";
+                        document.getElementById("cuartillos_produccion_finca").value = " ";
+
                         document.getElementById("button_actualizar_produccion_finca").style.display = "none";
                         document.getElementById("button_registrar_produccion_finca").style.display = "inline";
 
-                    }                                   
-                                   
+                        document.getElementById("button_borrar_produccion_finca").disabled = true;// Deshabilitamos el botón de borrar el recibo de producción por finca ya registrado
+                    }
+             
                 }
                 
             }
                    
     }
-   
+  
 }
 
 /// *** 1.4.2  registrar por primera vez la producción de una determinada finca en un día en específico**
@@ -322,6 +328,94 @@ function insertarCajuelasFincaBaseDatos(){
                 else{
                     
                     document.getElementById('default-success-insert-produccion-col').click();
+
+                }
+                
+            }            
+    }
+    obtenerProduccionFincaVerificacion(); //Realizamos la validación después de la inserción
+}
+
+/// *** 1.4.3  Actualizar la producción diaria de una finca en caso de ser necesario**
+
+document.querySelector('#button_actualizar_produccion_finca').addEventListener('click', actualizarCajuelasFincaBaseDatos); // BOTON EJECUTA LA FUNCIÓN
+
+function actualizarCajuelasFincaBaseDatos(){
+
+    var numero_recibo = document.getElementById("number_recibo").value;
+    var ide_finca = document.getElementById("select_fincas_cajuelas_finca").value;
+
+    var fecha_seleccionada = document.getElementById("campo_fecha_produccion_fincas").value;
+    let current_datetime = new Date(fecha_seleccionada);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+       
+    var cajuelas_digitadas = document.getElementById("cajuelas_produccion_finca").value;
+    var cuartillos_digitados = document.getElementById("cuartillos_produccion_finca").value;
+
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_produccion/db_update_produccion_dia_finca.php?numero_recibo='+numero_recibo
+    +'&id_finca_ingresado='+ide_finca+'&fecha_ingresada='+formatted_date+'&cajuelas_ingresadas='+cajuelas_digitadas
+    +'&cuartillos_ingresados='+cuartillos_digitados,true);
+
+    xhttp.send();
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 ya está creado y 1 que se puede crear como nuevo registro
+                
+                if (validacion_existencia == 0){
+                   
+                    document.getElementById('default-error-update-produccion-col').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-update-produccion-col').click();
+
+                }
+                
+            }            
+    }
+    obtenerProduccionFincaVerificacion(); //Realizamos la validación después de la inserción
+}
+
+/// *** 1.4.4  Borrar determinada producción diaria de una finca en caso de ser necesario**
+
+document.querySelector('#button_borrar_produccion_finca').addEventListener('click', borrarCajuelasFincaBaseDatos); // BOTON EJECUTA LA FUNCIÓN
+
+function borrarCajuelasFincaBaseDatos(){
+
+    var numero_recibo = document.getElementById("number_recibo").value;
+    var ide_finca = document.getElementById("select_fincas_cajuelas_finca").value;
+
+    var fecha_seleccionada = document.getElementById("campo_fecha_produccion_fincas").value;
+    let current_datetime = new Date(fecha_seleccionada);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
+       
+    const xhttp = new XMLHttpRequest();
+
+    xhttp.open('GET','assets/php_db/db_produccion/db_delete_produccion_diaria_finca.php?numero_recibo='+numero_recibo
+    +'&id_finca_ingresado='+ide_finca+'&fecha_ingresada='+formatted_date,true);
+
+    xhttp.send();
+    
+    xhttp.onreadystatechange = function(){
+
+            if(this.readyState == 4 && this.status == 200){
+
+                var validacion_existencia = this.responseText; // variable trae el valor de php donde 0 ya está creado y 1 que se puede crear como nuevo registro
+                
+                if (validacion_existencia == 0){
+                   
+                    document.getElementById('default-error-delete-pf').click();
+                    
+                }
+                else{
+                    
+                    document.getElementById('default-success-delete-pf').click();
 
                 }
                 
