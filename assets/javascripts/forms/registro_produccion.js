@@ -189,6 +189,8 @@ function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccion
             }            
     }
 
+    obtenerTelefonoColaborador(numero_colaborador); //mandamos el aviso de la inserción de la producción al colaborador por medio de sms
+
     obtenerCajuelasRegistradas(); // Volvemos a llamar la función para actualizar la tabla con los datos
     
 }
