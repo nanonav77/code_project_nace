@@ -1,11 +1,16 @@
 <?php
 
+    // ESTE CODIGO PHP CONECTA A LA BASE DE DATOS PARA MANDAR UN SMS AL COLABORADOR POR CADA INSERCIÓN Y ACTUALIZACIÓN DE UN REGISTRO
+
+    // Importamos la librerias que conectan al servicio de sms TWILIO
     require __DIR__ . '/vendor/autoload.php';
     use Twilio\Rest\Client;
 
+    $numero_telefono = $_GET['numero_telefono'];
+    
     // Your Account SID and Auth Token from twilio.com/console
     $account_sid = 'ACb08ac822f526b397c9cb85db560e31f5';
-    $auth_token = '809750253574d369f8212203f47953c6';
+    $auth_token = 'b4d9eb4332baaf22fe079ab71c2e4d02';
     // In production, these should be environment variables. E.g.:
     // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]
 

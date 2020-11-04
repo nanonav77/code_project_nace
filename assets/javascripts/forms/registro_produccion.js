@@ -103,7 +103,7 @@ function obtenerCajuelasRegistradas(){
                     const newTr = `
                         <tbody id="tblBodyProduccion">
                         <tr >
-                        <td class="pt-3-half" contenteditable="false">`+item.numero_colaborador+`</td>
+                        <td id=produccion_col_ide`+item.id_registro+` class="pt-3-half" contenteditable="false">`+item.numero_colaborador+`</td>
                         <td class="pt-3-half" contenteditable="false">`+item.nombre_colaborador+`</td>
                         <td class="pt-3-half" contenteditable="false">`+fecha_seleccionada+`</td>
                         <td id=cajuelas_ide`+item.id_registro+` class="pt-3-half" contenteditable="true">`+cajuelas_iniciales+`</td>
@@ -201,6 +201,7 @@ function actualizarCajuelasColaborador(ide_registro){
 
     var cajuelas = document.getElementById("cajuelas_ide"+ide_registro).innerText;
     var cuartillos = document.getElementById("cuartillos_ide"+ide_registro).innerText;
+    var numero_colaborador = document.getElementById("produccion_col_ide"+ide_registro).innerText;
 
     const xhttp = new XMLHttpRequest();
 
@@ -230,6 +231,7 @@ function actualizarCajuelasColaborador(ide_registro){
                                              
             }            
     }
+    obtenerTelefonoColaborador(numero_colaborador); //mandamos el aviso de la inserción de la producción al colaborador por medio de sms
 
     obtenerCajuelasRegistradas(); // Volvemos a llamar la función para actualizar la tabla con los datos
 }

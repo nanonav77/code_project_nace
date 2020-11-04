@@ -19,11 +19,37 @@ function obtenerTelefonoColaborador(idColaborador){
            
                 for(let item of datos){
 
-                  alert(item.telefono);                   
+                  envioSMS(item.telefono); //llamamos la función del envio del sms luego de obtener el # telefónico del colaborador                  
                    
                 }
                 
             }
-                   
+            
     }
+    
+}
+
+/// *** 2 ENVIAR EL SMS A TRAVÉS DEL API EN EL CÓDIGO PHP **
+
+
+function envioSMS(numero_telefono){  
+   
+  alert(numero_telefono);
+
+  const xhttp = new XMLHttpRequest();
+
+  xhttp.open('GET','assets/php_sms/send_sms.php?numero_telefono='+numero_telefono,true);
+
+  xhttp.send();
+  
+  xhttp.onreadystatechange = function(){
+
+        if(this.readyState == 4 && this.status == 200){
+
+        
+              
+        }
+                 
+  }
+
 }
