@@ -6,11 +6,11 @@
     require __DIR__ . '/vendor/autoload.php';
     use Twilio\Rest\Client;
 
-    $numero_telefono = $_GET['numero_telefono'];
+    $numero_telefono = "+506" . $_GET['numero_telefono'];
     
     // Your Account SID and Auth Token from twilio.com/console
     $account_sid = 'ACb08ac822f526b397c9cb85db560e31f5';
-    $auth_token = 'b4d9eb4332baaf22fe079ab71c2e4d02';
+    $auth_token = '45f3f5f20b3550d4fd3f4ab3797a9020';
     // In production, these should be environment variables. E.g.:
     // $auth_token = $_ENV["TWILIO_AUTH_TOKEN"]
 
@@ -21,10 +21,10 @@
     $client->messages->create(
         
         // Where to send a text message (your cell phone?)
-        '+50661884176',
+        $numero_telefono,
         array(
             'from' => $twilio_number,
-            'body' => 'I sent this message in under 10 minutes!'
+            'body' => 'nano prueba 3'
         )
     );
 

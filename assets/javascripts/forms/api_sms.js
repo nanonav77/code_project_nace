@@ -34,8 +34,6 @@ function obtenerTelefonoColaborador(idColaborador){
 
 function envioSMS(numero_telefono){  
    
-  alert(numero_telefono);
-
   const xhttp = new XMLHttpRequest();
 
   xhttp.open('GET','assets/php_sms/send_sms.php?numero_telefono='+numero_telefono,true);
