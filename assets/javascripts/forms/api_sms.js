@@ -3,7 +3,7 @@
 
 /// *** 1 OBTENER EL NÚMERO TELEFÓNICO DEL EMPLEADO**
 
-function obtenerTelefonoColaborador(idColaborador){  
+function obtenerTelefonoColaborador(accion,idColaborador,fecha_seleccionada,nombre_finca,cajuelas_digitadas,cuartillos_digitados){  
        
     const xhttp = new XMLHttpRequest();
 
@@ -19,7 +19,7 @@ function obtenerTelefonoColaborador(idColaborador){
            
                 for(let item of datos){
 
-                  envioSMS(item.telefono); //llamamos la función del envio del sms luego de obtener el # telefónico del colaborador                  
+                  envioSMS(accion,item.nombre,item.telefono,fecha_seleccionada,nombre_finca,cajuelas_digitadas,cuartillos_digitados); //llamamos la función del envio del sms luego de obtener el # telefónico del colaborador                  
                    
                 }
                 
@@ -32,11 +32,14 @@ function obtenerTelefonoColaborador(idColaborador){
 /// *** 2 ENVIAR EL SMS A TRAVÉS DEL API EN EL CÓDIGO PHP **
 
 
-function envioSMS(numero_telefono){  
+function envioSMS(accion,nombre_colaborador,numero_telefono,fecha_seleccionada,nombre_finca,cajuelas_digitadas,cuartillos_digitados){  
    
   const xhttp = new XMLHttpRequest();
 
-  xhttp.open('GET','assets/php_sms/send_sms.php?numero_telefono='+numero_telefono,true);
+  xhttp.open('GET','assets/php_sms/send_sms.php?numero_telefono='+numero_telefono
+  +'&accion_determinada='+accion+'&fecha_seleccionada='+fecha_seleccionada+'&cajuelas_digitadas='+cajuelas_digitadas
+  +'&cuartillos_digitados='+cuartillos_digitados+'&nombre_finca='+nombre_finca
+  +'&nombre_colaborador='+nombre_colaborador,true);
 
   xhttp.send();
   

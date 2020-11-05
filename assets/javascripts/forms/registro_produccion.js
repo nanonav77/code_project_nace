@@ -134,6 +134,8 @@ function insertarCajuelasColaborador(numero_colaborador){
     let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate();
 
     var ide_finca = document.getElementById("select_fincas_produccion").value;
+    var nombre_finca = $("#select_fincas_produccion option:selected").text();
+   
     var cajuelas_digitadas;
     var cuartillos_digitados; 
     
@@ -154,12 +156,14 @@ function insertarCajuelasColaborador(numero_colaborador){
         }
     }
     /// Insertar el registro finalmente en la base de datos
-    insertarCajuelasColaboradorBaseDatos(numero_colaborador,formatted_date,ide_finca,cajuelas_digitadas,cuartillos_digitados);
+    insertarCajuelasColaboradorBaseDatos(numero_colaborador,formatted_date,ide_finca,nombre_finca,cajuelas_digitadas,cuartillos_digitados);
 }
 
 /// *** 1.3.1.1 FUNCIÓN PARA INSERTAR INICIALMENTE LAS CAJUELAS DE UN COLABORADOR EN LA BASE DE DATOS**
 
-function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccionada,ide_finca,cajuelas_digitadas,cuartillos_digitados){
+function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccionada,ide_finca,nombre_finca,cajuelas_digitadas,cuartillos_digitados){
+
+    var fecha_seleccionada_sms = document.getElementById("campo_fecha_produccion_colaboradores").value;
 
     const xhttp = new XMLHttpRequest();
 
@@ -189,7 +193,7 @@ function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccion
             }            
     }
 
-    obtenerTelefonoColaborador(numero_colaborador); //mandamos el aviso de la inserción de la producción al colaborador por medio de sms
+    obtenerTelefonoColaborador('Registro Cajuelas',numero_colaborador,fecha_seleccionada_sms,nombre_finca,cajuelas_digitadas,cuartillos_digitados); //mandamos el aviso de la inserción de la producción al colaborador por medio de sms
 
     obtenerCajuelasRegistradas(); // Volvemos a llamar la función para actualizar la tabla con los datos
     
@@ -199,9 +203,12 @@ function insertarCajuelasColaboradorBaseDatos(numero_colaborador,fecha_seleccion
 
 function actualizarCajuelasColaborador(ide_registro){
 
+    var fecha_seleccionada = document.getElementById("campo_fecha_produccion_colaboradores").value;
     var cajuelas = document.getElementById("cajuelas_ide"+ide_registro).innerText;
     var cuartillos = document.getElementById("cuartillos_ide"+ide_registro).innerText;
     var numero_colaborador = document.getElementById("produccion_col_ide"+ide_registro).innerText;
+
+    var nombre_finca = $("#select_fincas_produccion option:selected").text();
 
     const xhttp = new XMLHttpRequest();
 
@@ -231,7 +238,7 @@ function actualizarCajuelasColaborador(ide_registro){
                                              
             }            
     }
-    obtenerTelefonoColaborador(numero_colaborador); //mandamos el aviso de la inserción de la producción al colaborador por medio de sms
+    obtenerTelefonoColaborador('Actualización Cajuelas',numero_colaborador,fecha_seleccionada,nombre_finca,cajuelas,cuartillos); //mandamos el aviso de la inserción de la producción al colaborador por medio de sms
 
     obtenerCajuelasRegistradas(); // Volvemos a llamar la función para actualizar la tabla con los datos
 }
