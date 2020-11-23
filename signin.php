@@ -47,7 +47,7 @@
 						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Iniciar Sesión</h2>
 					</div>
 					<div class="panel-body">
-						<form id="form_login" action="index.html" method="post">
+						<form id="form_login" action="index.php" method="post">
 							<div class="form-group mb-lg">
 								<label>Correo electrónico</label>
 								<div class="input-group input-group-icon">

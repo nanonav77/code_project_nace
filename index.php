@@ -274,7 +274,7 @@
 									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Bloquear Pantalla</a>
 								</li>
 								<li>
-									<a role="menuitem" tabindex="-1" href="signin.html"><i class="fa fa-power-off"></i> Salir</a>
+									<a role="menuitem" tabindex="-1" href="signin.php"><i class="fa fa-power-off"></i> Salir</a>
 								</li>
 							</ul>
 						</div>
@@ -345,23 +345,11 @@
 											</li>																						
 										</ul>
 									</li>
-									<li class="nav-parent">
-										<a>
+									<li>
+										<a href="">
 											<i class="fa fa-list-alt" aria-hidden="true"></i>
 											<span>Consulta Producción</span>
 										</a>
-										<ul class="nav nav-children">
-											<li>
-												<a href="">
-												   Consulta Cajuelas Colaborador
-												</a>
-											</li>
-											<li>
-												<a href="">
-												   Consulta Cajuelas Finca
-												</a>
-											</li>									
-										</ul>
 									</li>
 									<li class="nav-parent">
 										<a>
@@ -999,9 +987,7 @@
 					<!-- INICIO REGISTRO CAJUELAS FINCA -->
 
 					<!--  sección para llevar a cabo el registro y control de cajuelas de una finca-->
-					
-					<!--  panel para encontrar y seleccionar un colaborador -->
-
+						
 					<div class="col-md-12" id="seccion_registro_cajuelas_finca" style="display: none;">
 											
 						<section class="panel">
@@ -1121,6 +1107,88 @@
 				</div>				
 
 				<!-- FIN REGISTRO CAJUELAS POR FINCA -->
+
+				<!-- INICIO CONSULTA PRODUCCIÓN -->
+
+				<!--  sección para llevar a cabo la consulta producción diaria-->
+
+				<div class="col-md-12" id="seccion_consulta_produccion" style="display: none;">
+											
+					<section class="panel">
+						<header class="panel-heading">
+							<div class="panel-actions">
+								<a href="#" class="fa fa-caret-down"></a>
+							</div>
+			
+							<h2 class="panel-title">Consulta de Producción</h2>
+						</header>
+						<div class="panel-body">															
+																										
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label class="control-label">Desde:</label>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</span>
+											<input id="campo_fecha1_consulta_produccion" type="text" data-plugin-datepicker class="form-control" onchange="obtenerCajuelasRegistradas();" >
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-5">
+									<div class="form-group">
+										<label class="control-label">Hasta:</label>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</span>
+											<input id="campo_fecha2_consulta_produccion" type="text" data-plugin-datepicker class="form-control" onchange="obtenerCajuelasRegistradas();" >
+										</div>
+									</div>
+								</div>
+								
+								<div class="col-sm-2">
+									<div class="form-group">
+										<label class="control-label"></label>
+										<div>
+											<button type="button" id="button_registrar_produccion_finca" class="mb-xs mt-xs mr-xs btn btn-success btn-block">Realizar Pago</button>
+										</div>
+									</div>
+								</div>
+						</div>														
+					</section>						
+				</div>
+
+				<div class="col-md-12" id="seccion_lista_dias_consulta_produccion" style="display: none;">
+					<section class="panel">
+						<header class="panel-heading">
+							<div class="panel-actions">
+								<a href="#" class="fa fa-caret-down"></a>
+							</div>
+					
+							<h2 class="panel-title"></h2>
+						</header>
+						<div class="panel-body">								
+							<div id="table_control_produccion" class="table-editable">									
+								<table  id="table_control_produccion_editable" class="table table-bordered table-responsive-md table-striped text-center">
+								<thead>
+									<tr>
+									<th class="text-center">N°</th>
+									<th class="text-center">Colaborador</th>
+									<th class="text-center">Fecha</th>
+									<th class="text-center">Cajuelas</th>
+									<th class="text-center">Cuartillos</th>
+									<th class="text-center">Acción</th>
+									</tr>
+								</thead>									  
+								</table>
+							</div>
+						</div>
+					</section>				
+				</div>
+
+                <!-- FIN CONSULTA PRODUCCIÓN -->
 
 					<!--  sección para llevar a cabo el registro y control de fincas -->
 
